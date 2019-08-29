@@ -1,34 +1,45 @@
 package de.b4.jfx.dialogs;
 
+import de.b4.jfx.components.MultiEdit;
 import de.b4.jfx.model.Song;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 public class ID3Dialog extends Dialog<Song[]> {
+  private final static String TITLE_FIELD = "title";
+  private final static String ARTIST_FIELD = "artist";
+  private final static String ALBUMARTIST_FIELD = "albunartist";
+  private final static String ALBUM_FIELD = "album";
+  private final static String GENRE_FIELD = "genre";
+  private final static String YEAR_FIELD = "year";
+  private final static String TRACK_FIELD = "track";
+  private final static String CD_FIELD = "cd";
+  private final static String PATH_FIELD = "path";
+  private final static String DURATION_FIELD = "duration";
+  private final static String BPM_FIELD = "bpm";
+  private final static String BITRATE_FIELD = "bitrate";
+  private final static String SAMPLERATE_FIELD = "samplerate";
+
   private Song[] songs;
-  private TextField titleField;
-  private TextField artistField;
-  private TextField albumartistField;
-  private TextField albumField;
-  private TextField genreField;
-  private TextField yearField;
-  private TextField trackField;
-  private TextField cdField;
-  private TextField pathField;
-  private TextField durationField;
-  private TextField bpmField;
-  private TextField bitrateField;
-  private TextField samplerateField;
+  private Map<String,TextField> singleSongFields;
+  private Map<String, MultiEdit<String>> multiSongFields;
   private ImageView cover;
 
   private ID3Dialog() {}
 
   public static ID3Dialog newInstance(Song[] songs) {
+
     ID3Dialog dialog = new ID3Dialog();
     dialog.songs = songs;
     dialog.setTitle("Edit songs");
@@ -49,37 +60,92 @@ public class ID3Dialog extends Dialog<Song[]> {
   }
 
   private Tab createGeneralTab() {
+    if (songs.length > 1)
+      return new Tab("General", createMultiSongGeneralForm());
+    return new Tab("General", createSingleSongGeneralForm());
+  }
+
+  private GridPane createMultiSongGeneralForm() {
     GridPane grid = new GridPane();
     grid.setHgap(10);
     grid.setVgap(10);
     grid.setPadding(new Insets(20, 20, 10, 10));
+    multiSongFields = new HashMap<>();
+    multiSongFields.put(TITLE_FIELD, createMultiTextField(grid, "Title", 0, 0, 4, 1, false));
+    multiSongFields.put(ARTIST_FIELD, createMultiTextField(grid, "Artist", 0, 1, 4, 1, false));
+    multiSongFields.put(ALBUMARTIST_FIELD, createMultiTextField(grid, "Album Artist", 0, 2, 4, 1, false));
+    multiSongFields.put(ALBUM_FIELD, createMultiTextField(grid, "Album", 0, 3, 4, 1, false));
 
-    titleField = createTextField(grid, "Title", 0, 0, 3, 1, false);
-    artistField = createTextField(grid, "Artist", 0, 2, 3, 1, false);
-    albumartistField = createTextField(grid, "Album Artist", 0, 2, 3, 1, false);
-    albumField = createTextField(grid, "Album", 0, 3, 3, 1, false);
+    multiSongFields.put(GENRE_FIELD, createMultiTextField(grid, "Genre", 0, 4, 1, 1, false));
+    multiSongFields.put(YEAR_FIELD, createMultiTextField(grid, "Year", 3, 4, 1, 1, false));
+    multiSongFields.put(TRACK_FIELD, createMultiTextField(grid, "Track", 0, 5, 1, 1, false));
+    multiSongFields.put(CD_FIELD, createMultiTextField(grid, "CD", 3, 5, 1, 1, false));
 
-    genreField = createTextField(grid, "Genre", 0, 4, 1, 1, false);
-    yearField = createTextField(grid, "Year", 2, 4, 1, 1, false);
-    trackField = createTextField(grid, "Track", 0, 5, 1, 1, false);
-    cdField = createTextField(grid, "CD", 2, 5, 1, 1, false);
+    Separator separator = new Separator();
+    GridPane.setConstraints(separator,0, 6, 6, 1);
+    grid.add(separator, 0, 6);
+
+    multiSongFields.put(PATH_FIELD, createMultiTextField(grid, "Path", 0, 7, 4, 1, true));
+    multiSongFields.put(DURATION_FIELD, createMultiTextField(grid, "Duration", 0, 8, 1, 1, true));
+    multiSongFields.put(BPM_FIELD, createMultiTextField(grid, "BPM", 0, 9, 1, 1, true));
+    multiSongFields.put(BITRATE_FIELD, createMultiTextField(grid, "Bitrate", 0, 10, 1, 1, true));
+    multiSongFields.put(SAMPLERATE_FIELD, createMultiTextField(grid, "Samplerate", 0, 11, 1, 1, true));
+
+    grid.add(createCover(3, 8), 3, 8);
+    return grid;
+  }
+
+  private MultiEdit<String> createMultiTextField(GridPane grid, String title, int col, int row, int colspan, int rowspan, boolean disabled) {
+    Label label = new Label(title);
+    GridPane.setConstraints(label,col, row, 1, 1);
+    grid.add(label, col, row);
+
+    MultiEdit<String> multiEdit = new MultiEdit();
+    multiEdit.setDisable(disabled);
+    GridPane.setHgrow(multiEdit.getComboBox(), Priority.ALWAYS);
+    GridPane.setConstraints(multiEdit.getComboBox(),col + 1, row, colspan, rowspan);
+    GridPane.setConstraints(multiEdit.getCheckBox(),col + 1 + colspan, row);
+    grid.add(multiEdit.getComboBox(), col + 1, row);
+    grid.add(multiEdit.getCheckBox(), col + 1 + colspan, row);
+    return multiEdit;
+  }
+
+  private GridPane createSingleSongGeneralForm(){
+    GridPane grid = new GridPane();
+    grid.setHgap(10);
+    grid.setVgap(10);
+    grid.setPadding(new Insets(20, 20, 10, 10));
+    singleSongFields = new HashMap<>();
+    singleSongFields.put(TITLE_FIELD, createTextField(grid, "Title", 0, 0, 3, 1, false));
+    singleSongFields.put(ARTIST_FIELD, createTextField(grid, "Artist", 0, 1, 3, 1, false));
+    singleSongFields.put(ALBUMARTIST_FIELD, createTextField(grid, "Album Artist", 0, 2, 3, 1, false));
+    singleSongFields.put(ALBUM_FIELD, createTextField(grid, "Album", 0, 3, 3, 1, false));
+
+    singleSongFields.put(GENRE_FIELD, createTextField(grid, "Genre", 0, 4, 1, 1, false));
+    singleSongFields.put(YEAR_FIELD, createTextField(grid, "Year", 2, 4, 1, 1, false));
+    singleSongFields.put(TRACK_FIELD, createTextField(grid, "Track", 0, 5, 1, 1, false));
+    singleSongFields.put(CD_FIELD, createTextField(grid, "CD", 2, 5, 1, 1, false));
 
     Separator separator = new Separator();
     GridPane.setConstraints(separator,0, 6, 4, 1);
     grid.add(separator, 0, 6);
 
-    pathField = createTextField(grid, "Path", 0, 7, 3, 1, true);
-    durationField = createTextField(grid, "Duration", 0, 8, 1, 1, true);
-    bpmField = createTextField(grid, "BPM", 0, 9, 1, 1, true);
-    bitrateField = createTextField(grid, "Bitrate", 0, 10, 1, 1, true);
-    samplerateField = createTextField(grid, "Samplerate", 0, 11, 1, 1, true);
+    singleSongFields.put(PATH_FIELD, createTextField(grid, "Path", 0, 7, 3, 1, true));
+    singleSongFields.put(DURATION_FIELD, createTextField(grid, "Duration", 0, 8, 1, 1, true));
+    singleSongFields.put(BPM_FIELD, createTextField(grid, "BPM", 0, 9, 1, 1, true));
+    singleSongFields.put(BITRATE_FIELD, createTextField(grid, "Bitrate", 0, 10, 1, 1, true));
+    singleSongFields.put(SAMPLERATE_FIELD, createTextField(grid, "Samplerate", 0, 11, 1, 1, true));
 
+    grid.add(createCover(2, 8), 2, 8);
+    return grid;
+  }
+
+  private ImageView createCover(int columnIndex, int rowIndex) {
     cover = new ImageView("nocover.png");
     cover.setFitHeight(200);
     cover.setFitWidth(200);
-    GridPane.setConstraints(cover, 2, 8, 2, 4);
-    grid.add(cover, 2, 8);
-    return new Tab("General", grid);
+    GridPane.setConstraints(cover, columnIndex, rowIndex, 2, 4);
+    return cover;
   }
 
   private TextField createTextField(GridPane grid, String title, int col, int row, int colspan, int rowspan, boolean disabled) {
@@ -109,23 +175,55 @@ public class ID3Dialog extends Dialog<Song[]> {
   private void fillFields() {
     if (songs.length == 1) {
       Song song = songs[0];
-      titleField.setText(song.getTitle());
-      artistField.setText(song.getArtist());
-      albumartistField.setText(song.getAlbumArtist());
-      albumField.setText(song.getAlbum());
+      singleSongFields.get(TITLE_FIELD).setText(song.getTitle());
+      singleSongFields.get(ARTIST_FIELD).setText(song.getArtist());
+      singleSongFields.get(ALBUMARTIST_FIELD).setText(song.getAlbumArtist());
+      singleSongFields.get(ALBUM_FIELD).setText(song.getAlbum());
 
-      genreField.setText(song.getGenre());
-      yearField.setText(song.getYear());
-      trackField.setText(song.getTrack());
-      cdField.setText(song.getCD());
+      singleSongFields.get(GENRE_FIELD).setText(song.getGenre());
+      singleSongFields.get(YEAR_FIELD).setText(song.getYear());
+      singleSongFields.get(TRACK_FIELD).setText(song.getTrack());
+      singleSongFields.get(CD_FIELD).setText(song.getCD());
 
-      pathField.setText(song.getPath());
-      durationField.setText(song.getLength());
-      bpmField.setText(song.getBPM());
-      bitrateField.setText(String.valueOf(song.getBitrate()));
-      samplerateField.setText(String.valueOf(song.getSamplingrate()));
+      singleSongFields.get(PATH_FIELD).setText(song.getPath());
+      singleSongFields.get(DURATION_FIELD).setText(song.getLength());
+      singleSongFields.get(BPM_FIELD).setText(song.getBPM());
+      singleSongFields.get(BITRATE_FIELD).setText(String.valueOf(song.getBitrate()));
+      singleSongFields.get(SAMPLERATE_FIELD).setText(String.valueOf(song.getSamplingrate()));
 
       cover.setImage(song.getCover());
     }
+    else {
+      fillDistinctString(TITLE_FIELD, Song::getTitle);
+      fillDistinctString(ARTIST_FIELD, Song::getArtist);
+      fillDistinctString(ALBUMARTIST_FIELD, Song::getAlbumArtist);
+      fillDistinctString(ALBUM_FIELD, Song::getAlbum);
+
+      fillDistinctString(GENRE_FIELD, Song::getGenre);
+      fillDistinctString(YEAR_FIELD, Song::getYear);
+      fillDistinctString(TRACK_FIELD, Song::getTrack);
+      fillDistinctString(CD_FIELD, Song::getCD);
+
+      int h = Arrays.hashCode(songs[0].getCoverData());
+      Image img = songs[0].getCover();
+      for (int i = 1; i < songs.length; i++) {
+        if (Arrays.hashCode(songs[i].getCoverData()) != h) {
+          img = null;
+          break;
+        }
+      }
+      cover.setImage(img);
+    }
+  }
+
+  @FunctionalInterface
+  public interface StringAttribute {
+    String getAttribute(Song song);
+  }
+
+  private void fillDistinctString(String fieldName, StringAttribute attribute) {
+    MultiEdit multiEdit = multiSongFields.get(fieldName);
+
+    multiEdit.setItems(Arrays.asList(songs).stream().map(attribute::getAttribute).collect(Collectors.toSet()));
   }
 }

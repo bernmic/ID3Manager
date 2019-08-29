@@ -47,8 +47,10 @@ public class DirectoryTree extends TreeView<Directory> implements ObservableValu
             c.changed(treeView, treeView.currentSelected, newItem.getValue());
           }
           treeView.currentSelected = newItem.getValue();
+          Main.theApp.getConfiguration().setCurrentPath(treeView.currentSelected.getFile().getAbsolutePath());
         } else {
           treeView.currentSelected = null;
+          Main.theApp.getConfiguration().setCurrentPath("");
         }
       }
     });
