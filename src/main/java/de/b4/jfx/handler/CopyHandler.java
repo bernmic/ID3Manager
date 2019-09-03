@@ -22,7 +22,7 @@ public class CopyHandler extends Handler {
     MenuItem menuItem = new MenuItem("Copy");
     menuItem.setGraphic(new FontIcon(getIconCode("fa-copy")));
     menuItem.setOnAction(CopyHandler::action);
-    menuItem.setAccelerator(new KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_DOWN));
+    menuItem.setAccelerator(new KeyCodeCombination(KeyCode.C, KeyCombination.SHORTCUT_DOWN));
     return menuItem;
   }
 

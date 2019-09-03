@@ -22,7 +22,7 @@ public class PasteHandler extends Handler {
     MenuItem menuItem = new MenuItem("Paste");
     menuItem.setGraphic(new FontIcon(getIconCode("fa-paste")));
     menuItem.setOnAction(PasteHandler::action);
-    menuItem.setAccelerator(new KeyCodeCombination(KeyCode.V, KeyCombination.CONTROL_DOWN));
+    menuItem.setAccelerator(new KeyCodeCombination(KeyCode.V, KeyCombination.SHORTCUT_DOWN));
     return menuItem;
   }
 

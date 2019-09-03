@@ -22,7 +22,7 @@ public class UndoHandler extends Handler {
     MenuItem menuItem = new MenuItem("Undo");
     menuItem.setGraphic(new FontIcon(getIconCode("fa-undo")));
     menuItem.setOnAction(UndoHandler::action);
-    menuItem.setAccelerator(new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_DOWN));
+    menuItem.setAccelerator(new KeyCodeCombination(KeyCode.Z, KeyCombination.SHORTCUT_DOWN));
     return menuItem;
   }
 

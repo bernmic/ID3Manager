@@ -10,7 +10,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +29,7 @@ public class ID3Dialog extends Dialog<Song[]> {
   private final static String YEAR_FIELD = "year";
   private final static String TRACK_FIELD = "track";
   private final static String CD_FIELD = "cd";
-  private final static String PATH_FIELD = "path";
+  private final static String FILENAME_FIELD = "filename";
   private final static String DURATION_FIELD = "duration";
   private final static String BPM_FIELD = "bpm";
   private final static String BITRATE_FIELD = "bitrate";
@@ -35,6 +39,7 @@ public class ID3Dialog extends Dialog<Song[]> {
   private Map<String,TextField> singleSongFields;
   private Map<String, MultiEdit<String>> multiSongFields;
   private ImageView cover;
+  private CheckBox coverChanged;
 
   private ID3Dialog() {}
 
@@ -51,6 +56,7 @@ public class ID3Dialog extends Dialog<Song[]> {
     dialog.getDialogPane().setMinWidth(600);
     dialog.setResultConverter(param -> {
       if (param == ButtonType.OK) {
+        saveFormToSongs(dialog);
         return dialog.songs;
       }
       return null;
@@ -85,13 +91,15 @@ public class ID3Dialog extends Dialog<Song[]> {
     GridPane.setConstraints(separator,0, 6, 6, 1);
     grid.add(separator, 0, 6);
 
-    multiSongFields.put(PATH_FIELD, createMultiTextField(grid, "Path", 0, 7, 4, 1, true));
+    multiSongFields.put(FILENAME_FIELD, createMultiTextField(grid, "Filename", 0, 7, 4, 1, true));
     multiSongFields.put(DURATION_FIELD, createMultiTextField(grid, "Duration", 0, 8, 1, 1, true));
     multiSongFields.put(BPM_FIELD, createMultiTextField(grid, "BPM", 0, 9, 1, 1, true));
     multiSongFields.put(BITRATE_FIELD, createMultiTextField(grid, "Bitrate", 0, 10, 1, 1, true));
     multiSongFields.put(SAMPLERATE_FIELD, createMultiTextField(grid, "Samplerate", 0, 11, 1, 1, true));
 
     grid.add(createCover(3, 8), 3, 8);
+    coverChanged = new CheckBox();
+    grid.add(coverChanged, 5, 8);
     return grid;
   }
 
@@ -130,7 +138,7 @@ public class ID3Dialog extends Dialog<Song[]> {
     GridPane.setConstraints(separator,0, 6, 4, 1);
     grid.add(separator, 0, 6);
 
-    singleSongFields.put(PATH_FIELD, createTextField(grid, "Path", 0, 7, 3, 1, true));
+    singleSongFields.put(FILENAME_FIELD, createTextField(grid, "Filename", 0, 7, 3, 1, true));
     singleSongFields.put(DURATION_FIELD, createTextField(grid, "Duration", 0, 8, 1, 1, true));
     singleSongFields.put(BPM_FIELD, createTextField(grid, "BPM", 0, 9, 1, 1, true));
     singleSongFields.put(BITRATE_FIELD, createTextField(grid, "Bitrate", 0, 10, 1, 1, true));
@@ -145,6 +153,37 @@ public class ID3Dialog extends Dialog<Song[]> {
     cover.setFitHeight(200);
     cover.setFitWidth(200);
     GridPane.setConstraints(cover, columnIndex, rowIndex, 2, 4);
+    cover.setOnMouseClicked(e -> {
+      if (e.getClickCount() == 2) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose cover image");
+        fileChooser.setSelectedExtensionFilter(
+                new FileChooser.ExtensionFilter(
+                        "Images",
+                        "*.jpeg",
+                        "*.jpg",
+                        "*.gif",
+                        "*.png"
+
+                ));
+        File f = fileChooser.showOpenDialog(this.getOwner());
+        if (f != null) {
+          try {
+            Image newImage = new Image(new FileInputStream(f));
+            cover.setImage(newImage);
+            for (Song song : songs) {
+              song.setCover(f.getAbsolutePath());
+              song.setDirty(true);
+            }
+          } catch (FileNotFoundException ex) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("File not found");
+            alert.setContentText("The selected file was not found!");
+            alert.showAndWait();;
+          }
+        }
+      }
+    });
     return cover;
   }
 
@@ -185,7 +224,7 @@ public class ID3Dialog extends Dialog<Song[]> {
       singleSongFields.get(TRACK_FIELD).setText(song.getTrack());
       singleSongFields.get(CD_FIELD).setText(song.getCD());
 
-      singleSongFields.get(PATH_FIELD).setText(song.getPath());
+      singleSongFields.get(FILENAME_FIELD).setText(song.getPath() + song.getFilename());
       singleSongFields.get(DURATION_FIELD).setText(song.getLength());
       singleSongFields.get(BPM_FIELD).setText(song.getBPM());
       singleSongFields.get(BITRATE_FIELD).setText(String.valueOf(song.getBitrate()));
@@ -225,5 +264,102 @@ public class ID3Dialog extends Dialog<Song[]> {
     MultiEdit multiEdit = multiSongFields.get(fieldName);
 
     multiEdit.setItems(Arrays.asList(songs).stream().map(attribute::getAttribute).collect(Collectors.toSet()));
+  }
+
+  private static void saveFormToSongs(ID3Dialog dialog) {
+    if (dialog.songs.length == 1) {
+      Song song = dialog.songs[0];
+      if (!song.getTitle().equals(dialog.singleSongFields.get(TITLE_FIELD).getText())) {
+        song.setTitle(dialog.singleSongFields.get(TITLE_FIELD).getText());
+        song.setDirty(true);
+      }
+      if (!song.getArtist().equals(dialog.singleSongFields.get(ARTIST_FIELD).getText())) {
+        song.setArtist(dialog.singleSongFields.get(ARTIST_FIELD).getText());
+        song.setDirty(true);
+      }
+      if (!song.getAlbumArtist().equals(dialog.singleSongFields.get(ALBUMARTIST_FIELD).getText())) {
+        song.setAlbumArtist(dialog.singleSongFields.get(ALBUMARTIST_FIELD).getText());
+        song.setDirty(true);
+      }
+      if (!song.getAlbum().equals(dialog.singleSongFields.get(ALBUM_FIELD).getText())) {
+        song.setAlbum(dialog.singleSongFields.get(ALBUM_FIELD).getText());
+        song.setDirty(true);
+      }
+      if (!song.getGenre().equals(dialog.singleSongFields.get(GENRE_FIELD).getText())) {
+        song.setGenre(dialog.singleSongFields.get(GENRE_FIELD).getText());
+        song.setDirty(true);
+      }
+      if (!song.getYear().equals(dialog.singleSongFields.get(YEAR_FIELD).getText())) {
+        song.setYear(dialog.singleSongFields.get(YEAR_FIELD).getText());
+        song.setDirty(true);
+      }
+      if (!song.getTrack().equals(dialog.singleSongFields.get(TRACK_FIELD).getText())) {
+        song.setTrack(dialog.singleSongFields.get(TRACK_FIELD).getText());
+        song.setDirty(true);
+      }
+      if (!song.getCD().equals(dialog.singleSongFields.get(CD_FIELD).getText())) {
+        song.setCD(dialog.singleSongFields.get(CD_FIELD).getText());
+        song.setDirty(true);
+      }
+    }
+    else {
+      for (Song song : dialog.songs) {
+        if (dialog.multiSongFields.get(TITLE_FIELD).hasChanged() &&
+                !song.getTitle().equals(dialog.multiSongFields.get(TITLE_FIELD).getComboBox().getEditor().getText())
+        ) {
+          song.setTitle(dialog.multiSongFields.get(TITLE_FIELD).getComboBox().getEditor().getText());
+          song.setDirty(true);
+        }
+
+        if (dialog.multiSongFields.get(ARTIST_FIELD).hasChanged() &&
+                !song.getArtist().equals(dialog.multiSongFields.get(ARTIST_FIELD).getComboBox().getEditor().getText())
+        ) {
+          song.setArtist(dialog.multiSongFields.get(ARTIST_FIELD).getComboBox().getEditor().getText());
+          song.setDirty(true);
+        }
+
+        if (dialog.multiSongFields.get(ALBUM_FIELD).hasChanged() &&
+                !song.getAlbum().equals(dialog.multiSongFields.get(ALBUM_FIELD).getComboBox().getEditor().getText())
+        ) {
+          song.setAlbum(dialog.multiSongFields.get(ALBUM_FIELD).getComboBox().getEditor().getText());
+          song.setDirty(true);
+        }
+
+        if (dialog.multiSongFields.get(ALBUMARTIST_FIELD).hasChanged() &&
+                !song.getAlbumArtist().equals(dialog.multiSongFields.get(ALBUMARTIST_FIELD).getComboBox().getEditor().getText())
+        ) {
+          song.setAlbumArtist(dialog.multiSongFields.get(ALBUMARTIST_FIELD).getComboBox().getEditor().getText());
+          song.setDirty(true);
+        }
+
+        if (dialog.multiSongFields.get(GENRE_FIELD).hasChanged() &&
+                !song.getGenre().equals(dialog.multiSongFields.get(GENRE_FIELD).getComboBox().getEditor().getText())
+        ) {
+          song.setGenre(dialog.multiSongFields.get(GENRE_FIELD).getComboBox().getEditor().getText());
+          song.setDirty(true);
+        }
+
+        if (dialog.multiSongFields.get(YEAR_FIELD).hasChanged() &&
+                !song.getYear().equals(dialog.multiSongFields.get(YEAR_FIELD).getComboBox().getEditor().getText())
+        ) {
+          song.setYear(dialog.multiSongFields.get(YEAR_FIELD).getComboBox().getEditor().getText());
+          song.setDirty(true);
+        }
+
+        if (dialog.multiSongFields.get(TRACK_FIELD).hasChanged() &&
+                !song.getTrack().equals(dialog.multiSongFields.get(TRACK_FIELD).getComboBox().getEditor().getText())
+        ) {
+          song.setTrack(dialog.multiSongFields.get(TRACK_FIELD).getComboBox().getEditor().getText());
+          song.setDirty(true);
+        }
+
+        if (dialog.multiSongFields.get(CD_FIELD).hasChanged() &&
+                !song.getCD().equals(dialog.multiSongFields.get(CD_FIELD).getComboBox().getEditor().getText())
+        ) {
+          song.setCD(dialog.multiSongFields.get(CD_FIELD).getComboBox().getEditor().getText());
+          song.setDirty(true);
+        }
+      }
+    }
   }
 }

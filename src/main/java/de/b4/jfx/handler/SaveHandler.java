@@ -13,38 +13,36 @@ import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.util.Optional;
 
-public class EditHandler extends Handler {
-  private static EditHandler instance;
+public class SaveHandler extends Handler {
+  private static SaveHandler instance;
 
   public static Handler getInstance() {
     if (instance == null) {
-      instance = new EditHandler();
+      instance = new SaveHandler();
     }
     return instance;
   }
 
   public MenuItem createMenuItem() {
-    MenuItem menuItem = new MenuItem("Edit");
-    menuItem.setGraphic(new FontIcon(getIconCode("fa-edit")));
-    menuItem.setOnAction(EditHandler::action);
-    menuItem.setAccelerator(new KeyCodeCombination(KeyCode.E, KeyCombination.SHORTCUT_DOWN));
+    MenuItem menuItem = new MenuItem("Save");
+    menuItem.setGraphic(new FontIcon(getIconCode("fa-save")));
+    menuItem.setOnAction(SaveHandler::action);
+    menuItem.setAccelerator(new KeyCodeCombination(KeyCode.S, KeyCombination.SHORTCUT_DOWN));
     return menuItem;
   }
 
   public Button createToolbarButton() {
     Button button = new Button();
-    button.setGraphic(new FontIcon(getIconCode("fa-edit")));
-    button.setOnAction(EditHandler::action);
+    button.setGraphic(new FontIcon(getIconCode("fa-save")));
+    button.setOnAction(SaveHandler::action);
     return button;
   }
 
   private static void action(ActionEvent actionEvent) {
-    Song[] songs = Main.theApp.getSelectedSongs();
-    if (songs.length > 0) {
-      Optional<Song[]> result = ID3Dialog.newInstance(songs).showAndWait();
-      if (result.isPresent()) {
-        Main.theApp.songTable.refresh();
+    Main.theApp.songTable.getItems().forEach(s -> {
+      if (s.isDirty()) {
+        System.out.println("Save " + s.getPath() + s.getFilename());
       }
-    }
+    });
   }
 }

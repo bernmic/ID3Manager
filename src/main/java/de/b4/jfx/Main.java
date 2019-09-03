@@ -18,10 +18,11 @@ import java.util.stream.Collectors;
 
 public class Main extends Application {
   private boolean initialization = true;
+  final String os = System.getProperty("os.name");
   public static Main theApp;
   private StackPane root;
   private DirectoryTree directoryTree;
-  private SongTable songTable;
+  public SongTable songTable;
   private Configuration configuration;
 
   public Main() {
@@ -47,7 +48,7 @@ public class Main extends Application {
   @Override
   public void start(Stage stage) throws Exception {
     System.out.println("Start...");
-    stage.setTitle("SuperDuper JavaFX");
+    stage.setTitle("ID3Manager 2");
     root = new StackPane(createApplicationFrame());
     stage.setScene(new Scene(root, getConfiguration().getWidth(), getConfiguration().getHeight()));
     stage.setOnShowing(e -> {
@@ -66,8 +67,16 @@ public class Main extends Application {
 
   private MenuBar createMenubar() {
     Menu file = new Menu("_File");
-    file.getItems().addAll(QuitHandler.getInstance().getMenuItem());
-
+    if (os != null && os.startsWith("Mac")) {
+      file.getItems().addAll(
+              SaveHandler.getInstance().getMenuItem());
+    }
+    else {
+      file.getItems().addAll(
+              SaveHandler.getInstance().getMenuItem(),
+              new SeparatorMenuItem(),
+              QuitHandler.getInstance().getMenuItem());
+    }
     Menu edit = new Menu("_Edit");
     edit.getItems().addAll(
             UndoHandler.getInstance().getMenuItem(),
@@ -80,7 +89,10 @@ public class Main extends Application {
     Menu song = new Menu("_Songs");
     song.getItems().addAll(
             EditHandler.getInstance().getMenuItem(),
-            RenameHandler.getInstance().getMenuItem());
+            RenameHandler.getInstance().getMenuItem(),
+            new SeparatorMenuItem(),
+            RemoveID3V1Handler.getInstance().getMenuItem(),
+            RemoveID3V2Handler.getInstance().getMenuItem());
 
     Menu help = new Menu("_Help");
     help.getItems().addAll(AboutHandler.getInstance().getMenuItem());
@@ -88,11 +100,16 @@ public class Main extends Application {
     MenuBar menuBar = new MenuBar();
     menuBar.getMenus().addAll(file, edit, song, help);
 
+    if (os != null && os.startsWith("Mac"))
+      menuBar.useSystemMenuBarProperty().set(true);
+
     return menuBar;
   }
 
   private ToolBar createToolbar() {
     return new ToolBar(
+            SaveHandler.getInstance().getToolbarButton(),
+            new Separator(),
             UndoHandler.getInstance().getToolbarButton(),
             RedoHandler.getInstance().getToolbarButton(),
             new Separator(),

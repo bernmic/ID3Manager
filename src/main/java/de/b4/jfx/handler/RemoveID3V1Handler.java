@@ -1,5 +1,7 @@
 package de.b4.jfx.handler;
 
+import de.b4.jfx.Main;
+import de.b4.jfx.model.Song;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
@@ -8,32 +10,31 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-public class CutHandler extends Handler {
-  private static CutHandler instance;
+public class RemoveID3V1Handler extends Handler {
+  private static RemoveID3V1Handler instance;
 
   public static Handler getInstance() {
     if (instance == null) {
-      instance = new CutHandler();
+      instance = new RemoveID3V1Handler();
     }
     return instance;
   }
 
   public MenuItem createMenuItem() {
-    MenuItem menuItem = new MenuItem("Cut");
-    menuItem.setGraphic(new FontIcon(getIconCode("fa-cut")));
-    menuItem.setOnAction(CutHandler::action);
-    menuItem.setAccelerator(new KeyCodeCombination(KeyCode.X, KeyCombination.SHORTCUT_DOWN));
+    MenuItem menuItem = new MenuItem("Remove ID3v1");
+    menuItem.setOnAction(RemoveID3V1Handler::action);
+    menuItem.setAccelerator(new KeyCodeCombination(KeyCode.DIGIT1, KeyCombination.ALT_DOWN));
     return menuItem;
   }
 
   public Button createToolbarButton() {
-    Button button = new Button();
-    button.setGraphic(new FontIcon(getIconCode("fa-cut")));
-    button.setOnAction(CutHandler::action);
-    return button;
+    return null;
   }
 
   private static void action(ActionEvent actionEvent) {
-    System.out.println("Cut...");
+    for (Song song : Main.theApp.getSelectedSongs()) {
+      song.removeID3v1();
+    }
+    Main.theApp.songTable.refresh();
   }
 }

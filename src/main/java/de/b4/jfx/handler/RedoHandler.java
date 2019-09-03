@@ -22,7 +22,7 @@ public class RedoHandler extends Handler {
     MenuItem menuItem = new MenuItem("Redo");
     menuItem.setGraphic(new FontIcon(getIconCode("fa-repeat")));
     menuItem.setOnAction(RedoHandler::action);
-    menuItem.setAccelerator(new KeyCodeCombination(KeyCode.Y, KeyCombination.CONTROL_DOWN));
+    menuItem.setAccelerator(new KeyCodeCombination(KeyCode.Y, KeyCombination.SHORTCUT_DOWN));
     return menuItem;
   }
 
