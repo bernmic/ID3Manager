@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
 
 import java.io.File;
+import java.util.Arrays;
 
 public class DirectoryTreeItem extends TreeItem<Directory> {
   private boolean firstTimeChildren = true;
@@ -28,6 +29,7 @@ public class DirectoryTreeItem extends TreeItem<Directory> {
     if (this.getValue() != null && this.getValue().getFile() != null) {
       File[] files = this.getValue().getFile().listFiles();
       if (files != null) {
+        Arrays.sort(files);
         for (File f : files) {
           if (f.isDirectory() && !f.isHidden()) {
             children.add(new DirectoryTreeItem(new Directory(f, f.getName())));

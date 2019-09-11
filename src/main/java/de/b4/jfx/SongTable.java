@@ -14,6 +14,7 @@ import javafx.scene.layout.VBox;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class SongTable extends TableView<Song> {
@@ -112,6 +113,7 @@ public class SongTable extends TableView<Song> {
                     if (directory != null && directory.getFile() != null) {
                         File[] files = directory.getFile().listFiles();
                         if (files != null) {
+                            Arrays.sort(files);
                             int i = 0, count = files.length;
                             for (File f : files) {
                                 updateMessage(f.getName());

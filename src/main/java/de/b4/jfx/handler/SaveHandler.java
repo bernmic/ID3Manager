@@ -42,6 +42,7 @@ public class SaveHandler extends Handler {
     Main.theApp.songTable.getItems().forEach(s -> {
       if (s.isDirty()) {
         System.out.println("Save " + s.getPath() + s.getFilename());
+        s.save();
       }
     });
   }
