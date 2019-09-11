@@ -43,6 +43,7 @@ public class RenameHandler extends Handler {
     if (songs.length > 0) {
       Optional<Song[]> result = RenameDialog.newInstance(songs).showAndWait();
       if (result.isPresent()) {
+        Main.theApp.songTable.refresh();
       }
     }
   }

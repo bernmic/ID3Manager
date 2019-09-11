@@ -15,6 +15,8 @@ public class Configuration {
   private String iconColor = "";
   private int width = 800, height = 800;
   private String currentPath = "";
+  private String renamePattern = "";
+  private String parsePattern = "";
 
   public static Configuration newInstance() {
     Configuration configuration = new Configuration();
@@ -53,6 +55,8 @@ public class Configuration {
     this.setIconSize(Integer.parseInt(properties.getProperty("icon.size", "24")));
     this.setIconColor(properties.getProperty("icon.color", ""));
     this.setCurrentPath(properties.getProperty("path", ""));
+    this.setRenamePattern(properties.getProperty("pattern.rename", ""));
+    this.setParsePattern(properties.getProperty("pattern.parse", ""));
   }
 
   public void save() {
@@ -62,6 +66,9 @@ public class Configuration {
     properties.setProperty("icon.size", String.valueOf(getIconSize()));
     properties.setProperty("icon.color", getIconColor());
     properties.setProperty("path", getCurrentPath());
+    properties.setProperty("pattern.rename", getRenamePattern());
+    properties.setProperty("pattern.parse", getParsePattern());
+
     try {
       properties.store(new FileOutputStream(CONFIG_FILE), " JFX config file");
     } catch (Exception e) {
@@ -115,5 +122,21 @@ public class Configuration {
 
   public void setCurrentPath(String currentPath) {
     this.currentPath = currentPath;
+  }
+
+  public String getRenamePattern() {
+    return renamePattern;
+  }
+
+  public void setRenamePattern(String renamePattern) {
+    this.renamePattern = renamePattern;
+  }
+
+  public String getParsePattern() {
+    return parsePattern;
+  }
+
+  public void setParsePattern(String parsePattern) {
+    this.parsePattern = parsePattern;
   }
 }
