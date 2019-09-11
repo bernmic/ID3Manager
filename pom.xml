@@ -14,6 +14,7 @@
     <javafx.version>12</javafx.version>
     <ikonli.version>11.3.4</ikonli.version>
     <mp3agic.version>0.9.1</mp3agic.version>
+    <commons-text.version>1.8</commons-text.version>
   </properties>
 
   <dependencies>
@@ -42,6 +43,12 @@
       <groupId>com.mpatric</groupId>
       <artifactId>mp3agic</artifactId>
       <version>${mp3agic.version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-text -->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-text</artifactId>
+      <version>${commons-text.version}</version>
     </dependency>
   </dependencies>
   <build>

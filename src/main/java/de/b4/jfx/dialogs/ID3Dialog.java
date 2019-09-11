@@ -75,7 +75,7 @@ public class ID3Dialog extends Dialog<Song[]> {
     GridPane grid = new GridPane();
     grid.setHgap(10);
     grid.setVgap(10);
-    grid.setPadding(new Insets(20, 20, 10, 10));
+    grid.setPadding(new Insets(20, 10, 10, 10));
     multiSongFields = new HashMap<>();
     multiSongFields.put(TITLE_FIELD, createMultiTextField(grid, "Title", 0, 0, 4, 1, false));
     multiSongFields.put(ARTIST_FIELD, createMultiTextField(grid, "Artist", 0, 1, 4, 1, false));
