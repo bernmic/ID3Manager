@@ -3,8 +3,6 @@ package de.b4.jfx.dialogs;
 import de.b4.jfx.Main;
 import de.b4.jfx.model.Song;
 import de.b4.jfx.util.Util;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
