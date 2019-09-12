@@ -90,6 +90,7 @@ public class Main extends Application {
     song.getItems().addAll(
             EditHandler.getInstance().getMenuItem(),
             RenameHandler.getInstance().getMenuItem(),
+            ParseHandler.getInstance().getMenuItem(),
             new SeparatorMenuItem(),
             RemoveID3V1Handler.getInstance().getMenuItem(),
             RemoveID3V2Handler.getInstance().getMenuItem());

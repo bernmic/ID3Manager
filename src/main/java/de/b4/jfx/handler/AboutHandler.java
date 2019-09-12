@@ -1,5 +1,7 @@
 package de.b4.jfx.handler;
 
+import java.beans.EventHandler;
+
 import de.b4.jfx.dialogs.AboutDialog;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -25,6 +27,7 @@ public class AboutHandler extends Handler {
     menuItem.setOnAction(AboutHandler::action);
     return menuItem;
   }
+
 
   private static void action(ActionEvent actionEvent) {
     AboutDialog.newInstance().showAndWait();
