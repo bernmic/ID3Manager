@@ -22,11 +22,11 @@ public class QuitHandler extends Handler {
 
   public MenuItem createMenuItem() {
     MenuItem menuItem = new MenuItem("Quit");
-    menuItem.setOnAction(QuitHandler::action);
+    menuItem.setOnAction(this::action);
     return menuItem;
   }
 
-  private static void action(ActionEvent actionEvent) {
+  private void action(ActionEvent actionEvent) {
     Platform.exit();
   }
 }

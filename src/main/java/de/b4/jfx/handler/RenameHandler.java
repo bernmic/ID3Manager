@@ -27,7 +27,7 @@ public class RenameHandler extends SelectedHandler {
   public MenuItem createMenuItem() {
     MenuItem menuItem = new MenuItem("Rename");
     menuItem.setGraphic(new FontIcon(getIconCode("fa-exchange")));
-    menuItem.setOnAction(RenameHandler::action);
+    menuItem.setOnAction(this::action);
     menuItem.setAccelerator(new KeyCodeCombination(KeyCode.R, KeyCombination.ALT_DOWN));
     return menuItem;
   }
@@ -35,12 +35,12 @@ public class RenameHandler extends SelectedHandler {
   public Button createToolbarButton() {
     Button button = new Button();
     button.setGraphic(new FontIcon(getIconCode("fa-exchange")));
-    button.setOnAction(RenameHandler::action);
+    button.setOnAction(this::action);
     button.setTooltip(new Tooltip("Rename items"));
     return button;
   }
 
-  private static void action(ActionEvent actionEvent) {
+  private void action(ActionEvent actionEvent) {
     Song[] songs = Main.theApp.getSelectedSongs();
     if (songs.length > 0) {
       Optional<Song[]> result = RenameDialog.newInstance(songs).showAndWait();

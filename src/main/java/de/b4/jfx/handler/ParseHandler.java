@@ -27,7 +27,7 @@ public class ParseHandler extends SelectedHandler {
   public MenuItem createMenuItem() {
     MenuItem menuItem = new MenuItem("Parse filename");
     menuItem.setGraphic(new FontIcon(getIconCode("fa-code")));
-    menuItem.setOnAction(ParseHandler::action);
+    menuItem.setOnAction(this::action);
     menuItem.setAccelerator(new KeyCodeCombination(KeyCode.P, KeyCombination.ALT_DOWN));
     return menuItem;
   }
@@ -35,12 +35,12 @@ public class ParseHandler extends SelectedHandler {
   public Button createToolbarButton() {
     Button button = new Button();
     button.setGraphic(new FontIcon(getIconCode("fa-code")));
-    button.setOnAction(ParseHandler::action);
+    button.setOnAction(this::action);
     button.setTooltip(new Tooltip("Parse filename for ID3 tags"));
     return button;
   }
 
-  private static void action(ActionEvent actionEvent) {
+  private void action(ActionEvent actionEvent) {
     Song[] songs = Main.theApp.getSelectedSongs();
     if (songs.length > 0) {
       Optional<Song[]> result = ParseDialog.newInstance(songs).showAndWait();

@@ -22,7 +22,7 @@ public class CutHandler extends SelectedHandler {
   public MenuItem createMenuItem() {
     MenuItem menuItem = new MenuItem("Cut");
     menuItem.setGraphic(new FontIcon(getIconCode("fa-cut")));
-    menuItem.setOnAction(CutHandler::action);
+    menuItem.setOnAction(this::action);
     menuItem.setAccelerator(new KeyCodeCombination(KeyCode.X, KeyCombination.SHORTCUT_DOWN));
     return menuItem;
   }
@@ -30,13 +30,13 @@ public class CutHandler extends SelectedHandler {
   public Button createToolbarButton() {
     Button button = new Button();
     button.setGraphic(new FontIcon(getIconCode("fa-cut")));
-    button.setOnAction(CutHandler::action);
+    button.setOnAction(this::action);
     button.setTooltip(new Tooltip("Cut selected items"));
 
     return button;
   }
 
-  private static void action(ActionEvent actionEvent) {
+  private void action(ActionEvent actionEvent) {
     System.out.println("Cut...");
   }
 }

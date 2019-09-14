@@ -22,7 +22,7 @@ public class RedoHandler extends Handler {
   public MenuItem createMenuItem() {
     MenuItem menuItem = new MenuItem("Redo");
     menuItem.setGraphic(new FontIcon(getIconCode("fa-repeat")));
-    menuItem.setOnAction(RedoHandler::action);
+    menuItem.setOnAction(this::action);
     menuItem.setAccelerator(new KeyCodeCombination(KeyCode.Y, KeyCombination.SHORTCUT_DOWN));
     return menuItem;
   }
@@ -30,12 +30,12 @@ public class RedoHandler extends Handler {
   public Button createToolbarButton() {
     Button button = new Button();
     button.setGraphic(new FontIcon(getIconCode("fa-repeat")));
-    button.setOnAction(RedoHandler::action);
+    button.setOnAction(this::action);
     button.setTooltip(new Tooltip("Redo last action"));
     return button;
   }
 
-  private static void action(ActionEvent actionEvent) {
+  private void action(ActionEvent actionEvent) {
     System.out.println("Redo...");
   }
 }

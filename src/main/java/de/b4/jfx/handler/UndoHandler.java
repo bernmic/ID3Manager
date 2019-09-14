@@ -22,7 +22,7 @@ public class UndoHandler extends Handler {
   public MenuItem createMenuItem() {
     MenuItem menuItem = new MenuItem("Undo");
     menuItem.setGraphic(new FontIcon(getIconCode("fa-undo")));
-    menuItem.setOnAction(UndoHandler::action);
+    menuItem.setOnAction(this::action);
     menuItem.setAccelerator(new KeyCodeCombination(KeyCode.Z, KeyCombination.SHORTCUT_DOWN));
     return menuItem;
   }
@@ -30,12 +30,12 @@ public class UndoHandler extends Handler {
   public Button createToolbarButton() {
     Button button = new Button();
     button.setGraphic(new FontIcon(getIconCode("fa-undo")));
-    button.setOnAction(UndoHandler::action);
+    button.setOnAction(this::action);
     button.setTooltip(new Tooltip("Undo last action"));
     return button;
   }
 
-  private static void action(ActionEvent actionEvent) {
+  private void action(ActionEvent actionEvent) {
     System.out.println("Undo...");
   }
 }

@@ -22,7 +22,7 @@ public class CopyHandler extends SelectedHandler {
   public MenuItem createMenuItem() {
     MenuItem menuItem = new MenuItem("Copy");
     menuItem.setGraphic(new FontIcon(getIconCode("fa-copy")));
-    menuItem.setOnAction(CopyHandler::action);
+    menuItem.setOnAction(this::action);
     menuItem.setAccelerator(new KeyCodeCombination(KeyCode.C, KeyCombination.SHORTCUT_DOWN));
     return menuItem;
   }
@@ -30,12 +30,12 @@ public class CopyHandler extends SelectedHandler {
   public Button createToolbarButton() {
     Button button = new Button();
     button.setGraphic(new FontIcon(getIconCode("fa-copy")));
-    button.setOnAction(CopyHandler::action);
+    button.setOnAction(this::action);
     button.setTooltip(new Tooltip("Copy selected items"));
     return button;
   }
 
-  private static void action(ActionEvent actionEvent) {
+  private void action(ActionEvent actionEvent) {
     System.out.println("Copy...");
   }
 }

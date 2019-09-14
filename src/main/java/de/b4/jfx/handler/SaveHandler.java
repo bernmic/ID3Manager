@@ -27,7 +27,7 @@ public class SaveHandler extends Handler {
   public MenuItem createMenuItem() {
     MenuItem menuItem = new MenuItem("Save");
     menuItem.setGraphic(new FontIcon(getIconCode("fa-save")));
-    menuItem.setOnAction(SaveHandler::action);
+    menuItem.setOnAction(this::action);
     menuItem.setAccelerator(new KeyCodeCombination(KeyCode.S, KeyCombination.SHORTCUT_DOWN));
     return menuItem;
   }
@@ -35,12 +35,12 @@ public class SaveHandler extends Handler {
   public Button createToolbarButton() {
     Button button = new Button();
     button.setGraphic(new FontIcon(getIconCode("fa-save")));
-    button.setOnAction(SaveHandler::action);
+    button.setOnAction(this::action);
     button.setTooltip(new Tooltip("Save all changes"));
     return button;
   }
 
-  private static void action(ActionEvent actionEvent) {
+  private void action(ActionEvent actionEvent) {
     Main.theApp.songTable.getItems().forEach(s -> {
       if (s.isDirty()) {
         System.out.println("Save " + s.getPath() + s.getFilename());

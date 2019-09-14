@@ -22,7 +22,7 @@ public class RemoveID3V1Handler extends SelectedHandler {
 
   public MenuItem createMenuItem() {
     MenuItem menuItem = new MenuItem("Remove ID3v1");
-    menuItem.setOnAction(RemoveID3V1Handler::action);
+    menuItem.setOnAction(this::action);
     menuItem.setAccelerator(new KeyCodeCombination(KeyCode.DIGIT1, KeyCombination.ALT_DOWN));
     return menuItem;
   }
@@ -31,7 +31,7 @@ public class RemoveID3V1Handler extends SelectedHandler {
     return null;
   }
 
-  private static void action(ActionEvent actionEvent) {
+  private void action(ActionEvent actionEvent) {
     for (Song song : Main.theApp.getSelectedSongs()) {
       song.removeID3v1();
     }

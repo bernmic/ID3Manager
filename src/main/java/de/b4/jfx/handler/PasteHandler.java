@@ -22,7 +22,7 @@ public class PasteHandler extends SelectedHandler {
   MenuItem createMenuItem() {
     MenuItem menuItem = new MenuItem("Paste");
     menuItem.setGraphic(new FontIcon(getIconCode("fa-paste")));
-    menuItem.setOnAction(PasteHandler::action);
+    menuItem.setOnAction(this::action);
     menuItem.setAccelerator(new KeyCodeCombination(KeyCode.V, KeyCombination.SHORTCUT_DOWN));
     return menuItem;
   }
@@ -30,12 +30,12 @@ public class PasteHandler extends SelectedHandler {
   Button createToolbarButton() {
     Button button = new Button();
     button.setGraphic(new FontIcon(getIconCode("fa-paste")));
-    button.setOnAction(PasteHandler::action);
+    button.setOnAction(this::action);
     button.setTooltip(new Tooltip("Paste items from clipboard"));
     return button;
   }
 
-  private static void action(ActionEvent actionEvent) {
+  private void action(ActionEvent actionEvent) {
     System.out.println("Paste...");
   }
 }
