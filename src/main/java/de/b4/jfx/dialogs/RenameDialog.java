@@ -79,6 +79,7 @@ public class RenameDialog extends Dialog<Song[]> {
                 String p1 = patternField.getText().substring(0, pos);
                 String p2 = patternField.getText().substring(pos);
                 patternField.setText(p1 + menuItem.getUserData() + p2);
+                patternField.positionCaret(pos + 2);
             }
         });
         return menuItem;

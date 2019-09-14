@@ -3,8 +3,6 @@ package de.b4.jfx;
 import de.b4.jfx.handler.EditHandler;
 import de.b4.jfx.model.Directory;
 import de.b4.jfx.model.Song;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.geometry.Pos;
@@ -38,6 +36,10 @@ public class SongTable extends TableView<Song> {
                 tableView.createTableColumn("ID3Version", "iD3Version", 10)
         );
         tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        tableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSel, newSel) -> {
+            Main.somethingSelected.setValue(!tableView.getSelectionModel().isEmpty());
+        });
 
         tableView.setRowFactory(tv -> {
             TableRow<Song> tableRow = new TableRow<>() {

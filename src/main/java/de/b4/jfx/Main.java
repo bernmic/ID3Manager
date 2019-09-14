@@ -4,6 +4,8 @@ import de.b4.jfx.handler.*;
 import de.b4.jfx.model.Configuration;
 import de.b4.jfx.model.Song;
 import javafx.application.Application;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -24,6 +26,7 @@ public class Main extends Application {
   private DirectoryTree directoryTree;
   public SongTable songTable;
   private Configuration configuration;
+  public static final BooleanProperty somethingSelected = new SimpleBooleanProperty(false);
 
   public Main() {
     Main.theApp = this;
@@ -38,8 +41,8 @@ public class Main extends Application {
   @SuppressWarnings("RedundantThrows")
   @Override
   public void stop() throws Exception {
-    configuration.setWidth((int)root.getWidth());
-    configuration.setHeight((int)root.getHeight());
+    configuration.setWidth((int) root.getWidth());
+    configuration.setHeight((int) root.getHeight());
     configuration.save();
     System.out.println("Stop...");
   }
@@ -70,8 +73,7 @@ public class Main extends Application {
     if (os != null && os.startsWith("Mac")) {
       file.getItems().addAll(
               SaveHandler.getInstance().getMenuItem());
-    }
-    else {
+    } else {
       file.getItems().addAll(
               SaveHandler.getInstance().getMenuItem(),
               new SeparatorMenuItem(),
@@ -119,7 +121,8 @@ public class Main extends Application {
             PasteHandler.getInstance().getToolbarButton(),
             new Separator(),
             EditHandler.getInstance().getToolbarButton(),
-            RenameHandler.getInstance().getToolbarButton());
+            RenameHandler.getInstance().getToolbarButton(),
+            ParseHandler.getInstance().getToolbarButton());
   }
 
   private HBox createStatusbar() {

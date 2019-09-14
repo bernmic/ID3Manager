@@ -9,7 +9,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 
-public class RemoveID3V2Handler extends Handler {
+public class RemoveID3V2Handler extends SelectedHandler {
   private static RemoveID3V2Handler instance;
 
   public static Handler getInstance() {

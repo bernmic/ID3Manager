@@ -6,6 +6,7 @@ import de.b4.jfx.model.Song;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -13,7 +14,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.util.Optional;
 
-public class RenameHandler extends Handler {
+public class RenameHandler extends SelectedHandler {
   private static RenameHandler instance;
 
   public static Handler getInstance() {
@@ -35,6 +36,7 @@ public class RenameHandler extends Handler {
     Button button = new Button();
     button.setGraphic(new FontIcon(getIconCode("fa-exchange")));
     button.setOnAction(RenameHandler::action);
+    button.setTooltip(new Tooltip("Rename items"));
     return button;
   }
 

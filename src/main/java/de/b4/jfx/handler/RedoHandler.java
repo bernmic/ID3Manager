@@ -3,6 +3,7 @@ package de.b4.jfx.handler;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -30,6 +31,7 @@ public class RedoHandler extends Handler {
     Button button = new Button();
     button.setGraphic(new FontIcon(getIconCode("fa-repeat")));
     button.setOnAction(RedoHandler::action);
+    button.setTooltip(new Tooltip("Redo last action"));
     return button;
   }
 

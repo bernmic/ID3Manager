@@ -6,6 +6,7 @@ import de.b4.jfx.model.Song;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -35,6 +36,7 @@ public class SaveHandler extends Handler {
     Button button = new Button();
     button.setGraphic(new FontIcon(getIconCode("fa-save")));
     button.setOnAction(SaveHandler::action);
+    button.setTooltip(new Tooltip("Save all changes"));
     return button;
   }
 

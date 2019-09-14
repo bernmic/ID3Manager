@@ -10,7 +10,7 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-public class RemoveID3V1Handler extends Handler {
+public class RemoveID3V1Handler extends SelectedHandler {
   private static RemoveID3V1Handler instance;
 
   public static Handler getInstance() {
