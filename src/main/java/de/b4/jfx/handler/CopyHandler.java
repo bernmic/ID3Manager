@@ -1,5 +1,6 @@
 package de.b4.jfx.handler;
 
+import de.b4.jfx.Messages;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
@@ -20,7 +21,7 @@ public class CopyHandler extends SelectedHandler {
   }
 
   public MenuItem createMenuItem() {
-    MenuItem menuItem = new MenuItem("Copy");
+    MenuItem menuItem = new MenuItem(Messages.getString("menu.copy.label"));
     menuItem.setGraphic(new FontIcon(getIconCode("fa-copy")));
     menuItem.setOnAction(this::action);
     menuItem.setAccelerator(new KeyCodeCombination(KeyCode.C, KeyCombination.SHORTCUT_DOWN));
@@ -31,7 +32,7 @@ public class CopyHandler extends SelectedHandler {
     Button button = new Button();
     button.setGraphic(new FontIcon(getIconCode("fa-copy")));
     button.setOnAction(this::action);
-    button.setTooltip(new Tooltip("Copy selected items"));
+    button.setTooltip(new Tooltip(Messages.getString("menu.copy.tooltip")));
     return button;
   }
 

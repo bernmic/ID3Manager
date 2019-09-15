@@ -1,6 +1,7 @@
 package de.b4.jfx.handler;
 
 import de.b4.jfx.Main;
+import de.b4.jfx.Messages;
 import de.b4.jfx.dialogs.RenameDialog;
 import de.b4.jfx.model.Song;
 import javafx.event.ActionEvent;
@@ -25,7 +26,7 @@ public class RenameHandler extends SelectedHandler {
   }
 
   public MenuItem createMenuItem() {
-    MenuItem menuItem = new MenuItem("Rename");
+    MenuItem menuItem = new MenuItem(Messages.getString("menu.rename.label"));
     menuItem.setGraphic(new FontIcon(getIconCode("fa-exchange")));
     menuItem.setOnAction(this::action);
     menuItem.setAccelerator(new KeyCodeCombination(KeyCode.R, KeyCombination.ALT_DOWN));
@@ -36,7 +37,7 @@ public class RenameHandler extends SelectedHandler {
     Button button = new Button();
     button.setGraphic(new FontIcon(getIconCode("fa-exchange")));
     button.setOnAction(this::action);
-    button.setTooltip(new Tooltip("Rename items"));
+    button.setTooltip(new Tooltip(Messages.getString("menu.rename.tooltip")));
     return button;
   }
 

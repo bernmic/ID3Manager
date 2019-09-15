@@ -1,5 +1,6 @@
 package de.b4.jfx.handler;
 
+import de.b4.jfx.Messages;
 import de.b4.jfx.dialogs.AboutDialog;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -21,7 +22,7 @@ public class AboutHandler extends Handler {
   }
 
   public MenuItem createMenuItem() {
-    MenuItem menuItem = new MenuItem("About");
+    MenuItem menuItem = new MenuItem(Messages.getString("menu.about.label"));
     menuItem.setOnAction(this::action);
     return menuItem;
   }

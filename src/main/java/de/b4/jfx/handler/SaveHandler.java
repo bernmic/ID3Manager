@@ -1,6 +1,7 @@
 package de.b4.jfx.handler;
 
 import de.b4.jfx.Main;
+import de.b4.jfx.Messages;
 import de.b4.jfx.dialogs.ID3Dialog;
 import de.b4.jfx.model.Song;
 import javafx.event.ActionEvent;
@@ -25,7 +26,7 @@ public class SaveHandler extends Handler {
   }
 
   public MenuItem createMenuItem() {
-    MenuItem menuItem = new MenuItem("Save");
+    MenuItem menuItem = new MenuItem(Messages.getString("menu.save.label"));
     menuItem.setGraphic(new FontIcon(getIconCode("fa-save")));
     menuItem.setOnAction(this::action);
     menuItem.setAccelerator(new KeyCodeCombination(KeyCode.S, KeyCombination.SHORTCUT_DOWN));
@@ -36,7 +37,7 @@ public class SaveHandler extends Handler {
     Button button = new Button();
     button.setGraphic(new FontIcon(getIconCode("fa-save")));
     button.setOnAction(this::action);
-    button.setTooltip(new Tooltip("Save all changes"));
+    button.setTooltip(new Tooltip(Messages.getString("menu.save.tooltip")));
     return button;
   }
 

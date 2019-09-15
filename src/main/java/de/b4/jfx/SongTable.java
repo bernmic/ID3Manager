@@ -11,7 +11,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.VBox;
 
-import javax.naming.Context;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,14 +27,14 @@ public class SongTable extends TableView<Song> {
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         tableView.getColumns().addAll(
-                tableView.createTableColumn("Filename", "filename", 15),
-                tableView.createTableColumn("Title", "title", 20),
-                tableView.createTableColumn("Artist", "artist", 20),
-                tableView.createTableColumn("Album", "album", 20),
-                tableView.createTableColumn("Track", "track", 4),
-                tableView.createTableColumn("Year", "year", 5),
-                tableView.createTableColumn("Genre", "genre", 10),
-                tableView.createTableColumn("ID3Version", "iD3Version", 10)
+                tableView.createTableColumn(Messages.getString("column.filename.label"), "filename", 15),
+                tableView.createTableColumn(Messages.getString("column.title.label"), "title", 20),
+                tableView.createTableColumn(Messages.getString("column.artist.label"), "artist", 20),
+                tableView.createTableColumn(Messages.getString("column.album.label"), "album", 20),
+                tableView.createTableColumn(Messages.getString("column.track.label"), "track", 4),
+                tableView.createTableColumn(Messages.getString("column.year.label"), "year", 5),
+                tableView.createTableColumn(Messages.getString("column.genre.label"), "genre", 10),
+                tableView.createTableColumn(Messages.getString("column.id3version.label"), "iD3Version", 10)
         );
         tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 

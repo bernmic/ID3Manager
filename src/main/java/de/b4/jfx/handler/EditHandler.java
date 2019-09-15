@@ -1,6 +1,7 @@
 package de.b4.jfx.handler;
 
 import de.b4.jfx.Main;
+import de.b4.jfx.Messages;
 import de.b4.jfx.dialogs.ID3Dialog;
 import de.b4.jfx.model.Song;
 import javafx.event.ActionEvent;
@@ -25,7 +26,7 @@ public class EditHandler extends SelectedHandler {
   }
 
   public MenuItem createMenuItem() {
-    MenuItem menuItem = new MenuItem("Edit");
+    MenuItem menuItem = new MenuItem(Messages.getString("menu.edit.label"));
     menuItem.setGraphic(new FontIcon(getIconCode("fa-edit")));
     menuItem.setOnAction(this::action);
     menuItem.setAccelerator(new KeyCodeCombination(KeyCode.E, KeyCombination.SHORTCUT_DOWN));
@@ -36,7 +37,7 @@ public class EditHandler extends SelectedHandler {
     Button button = new Button();
     button.setGraphic(new FontIcon(getIconCode("fa-edit")));
     button.setOnAction(this::action);
-    button.setTooltip(new Tooltip("Edit selected items"));
+    button.setTooltip(new Tooltip(Messages.getString("menu.edit.tooltip")));
     return button;
   }
 

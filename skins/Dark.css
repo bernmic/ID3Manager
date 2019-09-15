@@ -1,0 +1,5 @@
+.root {
+    -fx-base: rgba(60, 63, 65, 255); // dark
+    -fx-accent: #e7eff7 ;
+    -fx-text-fill: rgb(196,188,222);
+}

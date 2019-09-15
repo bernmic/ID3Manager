@@ -17,6 +17,7 @@ public class Configuration {
   private String currentPath = "";
   private String renamePattern = "";
   private String parsePattern = "";
+  private String skin = "";
 
   public static Configuration newInstance() {
     Configuration configuration = new Configuration();
@@ -49,6 +50,14 @@ public class Configuration {
     return properties;
   }
 
+  public String getSkin() {
+    return skin;
+  }
+
+  public void setSkin(String skin) {
+    this.skin = skin;
+  }
+
   private void parse(Properties properties) {
     this.setWidth(Integer.parseInt(properties.getProperty("window.width", "800")));
     this.setHeight(Integer.parseInt(properties.getProperty("window.height", "600")));
@@ -57,6 +66,7 @@ public class Configuration {
     this.setCurrentPath(properties.getProperty("path", ""));
     this.setRenamePattern(properties.getProperty("pattern.rename", ""));
     this.setParsePattern(properties.getProperty("pattern.parse", ""));
+    this.setSkin(properties.getProperty("skin", ""));
   }
 
   public void save() {
@@ -68,7 +78,7 @@ public class Configuration {
     properties.setProperty("path", getCurrentPath());
     properties.setProperty("pattern.rename", getRenamePattern());
     properties.setProperty("pattern.parse", getParsePattern());
-
+    properties.setProperty("skin", getSkin());
     try {
       properties.store(new FileOutputStream(CONFIG_FILE), " JFX config file");
     } catch (Exception e) {

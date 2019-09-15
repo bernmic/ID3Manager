@@ -1,5 +1,6 @@
 package de.b4.jfx.handler;
 
+import de.b4.jfx.Messages;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
@@ -20,7 +21,7 @@ public class UndoHandler extends Handler {
   }
 
   public MenuItem createMenuItem() {
-    MenuItem menuItem = new MenuItem("Undo");
+    MenuItem menuItem = new MenuItem(Messages.getString("menu.undo.label"));
     menuItem.setGraphic(new FontIcon(getIconCode("fa-undo")));
     menuItem.setOnAction(this::action);
     menuItem.setAccelerator(new KeyCodeCombination(KeyCode.Z, KeyCombination.SHORTCUT_DOWN));
@@ -31,7 +32,7 @@ public class UndoHandler extends Handler {
     Button button = new Button();
     button.setGraphic(new FontIcon(getIconCode("fa-undo")));
     button.setOnAction(this::action);
-    button.setTooltip(new Tooltip("Undo last action"));
+    button.setTooltip(new Tooltip(Messages.getString("menu.undo.tooltip")));
     return button;
   }
 

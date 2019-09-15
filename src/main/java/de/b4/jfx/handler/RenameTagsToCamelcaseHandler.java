@@ -1,6 +1,7 @@
 package de.b4.jfx.handler;
 
 import de.b4.jfx.Main;
+import de.b4.jfx.Messages;
 import de.b4.jfx.model.Song;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -19,7 +20,7 @@ public class RenameTagsToCamelcaseHandler extends SelectedHandler {
   }
 
   public MenuItem createMenuItem() {
-    MenuItem menuItem = new MenuItem("Camelcase ID3 tags");
+    MenuItem menuItem = new MenuItem(Messages.getString("menu.camelcasetags.label"));
     menuItem.setOnAction(this::action);
     //menuItem.setAccelerator(new KeyCodeCombination(KeyCode.C, KeyCombination.ALT_DOWN));
     return menuItem;

@@ -1,6 +1,7 @@
 package de.b4.jfx.handler;
 
 import de.b4.jfx.Main;
+import de.b4.jfx.Messages;
 import de.b4.jfx.model.Song;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -20,7 +21,7 @@ public class RemoveID3V2Handler extends SelectedHandler {
   }
 
   public MenuItem createMenuItem() {
-    MenuItem menuItem = new MenuItem("Remove ID3v2");
+    MenuItem menuItem = new MenuItem(Messages.getString("menu.removeid3v2.label"));
     menuItem.setOnAction(this::action);
     menuItem.setAccelerator(new KeyCodeCombination(KeyCode.DIGIT2, KeyCombination.ALT_DOWN));
     return menuItem;

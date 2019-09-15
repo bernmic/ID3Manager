@@ -1,6 +1,7 @@
 package de.b4.jfx.handler;
 
 import de.b4.jfx.Main;
+import de.b4.jfx.Messages;
 import de.b4.jfx.model.Song;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -22,7 +23,7 @@ public class RenameFileToCamelcaseHandler extends SelectedHandler {
   }
 
   public MenuItem createMenuItem() {
-    MenuItem menuItem = new MenuItem("Camelcase filename");
+    MenuItem menuItem = new MenuItem(Messages.getString("menu.camelcasefilename.label"));
     menuItem.setOnAction(this::action);
     //menuItem.setAccelerator(new KeyCodeCombination(KeyCode.C, KeyCombination.ALT_DOWN));
     return menuItem;

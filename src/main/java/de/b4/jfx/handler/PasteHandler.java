@@ -1,5 +1,6 @@
 package de.b4.jfx.handler;
 
+import de.b4.jfx.Messages;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
@@ -20,7 +21,7 @@ public class PasteHandler extends SelectedHandler {
   }
 
   MenuItem createMenuItem() {
-    MenuItem menuItem = new MenuItem("Paste");
+    MenuItem menuItem = new MenuItem(Messages.getString("menu.paste.label"));
     menuItem.setGraphic(new FontIcon(getIconCode("fa-paste")));
     menuItem.setOnAction(this::action);
     menuItem.setAccelerator(new KeyCodeCombination(KeyCode.V, KeyCombination.SHORTCUT_DOWN));
@@ -31,7 +32,7 @@ public class PasteHandler extends SelectedHandler {
     Button button = new Button();
     button.setGraphic(new FontIcon(getIconCode("fa-paste")));
     button.setOnAction(this::action);
-    button.setTooltip(new Tooltip("Paste items from clipboard"));
+    button.setTooltip(new Tooltip(Messages.getString("menu.paste.tooltip")));
     return button;
   }
 

@@ -1,6 +1,7 @@
 package de.b4.jfx.handler;
 
 import de.b4.jfx.Main;
+import de.b4.jfx.Messages;
 import de.b4.jfx.dialogs.ParseDialog;
 import de.b4.jfx.model.Song;
 import javafx.event.ActionEvent;
@@ -25,7 +26,7 @@ public class ParseHandler extends SelectedHandler {
   }
 
   public MenuItem createMenuItem() {
-    MenuItem menuItem = new MenuItem("Parse filename");
+    MenuItem menuItem = new MenuItem(Messages.getString("menu.parse.label"));
     menuItem.setGraphic(new FontIcon(getIconCode("fa-code")));
     menuItem.setOnAction(this::action);
     menuItem.setAccelerator(new KeyCodeCombination(KeyCode.P, KeyCombination.ALT_DOWN));
@@ -36,7 +37,7 @@ public class ParseHandler extends SelectedHandler {
     Button button = new Button();
     button.setGraphic(new FontIcon(getIconCode("fa-code")));
     button.setOnAction(this::action);
-    button.setTooltip(new Tooltip("Parse filename for ID3 tags"));
+    button.setTooltip(new Tooltip(Messages.getString("menu.parse.tooltip")));
     return button;
   }
 

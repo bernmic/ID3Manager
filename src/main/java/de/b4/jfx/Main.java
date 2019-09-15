@@ -15,6 +15,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,10 +54,19 @@ public class Main extends Application {
     System.out.println("Start...");
     stage.setTitle("ID3Manager 2");
     root = new StackPane(createApplicationFrame());
-    stage.setScene(new Scene(root, getConfiguration().getWidth(), getConfiguration().getHeight()));
+    Scene scene = new Scene(root, getConfiguration().getWidth(), getConfiguration().getHeight());
+    stage.setScene(scene);
     stage.setOnShowing(e -> {
       directoryTree.expandToPath(Main.theApp.getConfiguration().getCurrentPath());
     });
+    if (!"".equals(getConfiguration().getSkin())) {
+      File f = new File(getConfiguration().getSkin());
+      if (f.exists()) {
+        System.out.println("Set skin to " + f.getAbsolutePath());
+        scene.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
+      }
+    }
+
     initialization = false;
     stage.show();
   }
@@ -69,7 +79,7 @@ public class Main extends Application {
   }
 
   private MenuBar createMenubar() {
-    Menu file = new Menu("_File");
+    Menu file = new Menu(Messages.getString("file.label"));
     if (os != null && os.startsWith("Mac")) {
       file.getItems().addAll(
               SaveHandler.getInstance().getMenuItem());
@@ -79,7 +89,7 @@ public class Main extends Application {
               new SeparatorMenuItem(),
               QuitHandler.getInstance().getMenuItem());
     }
-    Menu edit = new Menu("_Edit");
+    Menu edit = new Menu(Messages.getString("edit.label"));
     edit.getItems().addAll(
             UndoHandler.getInstance().getMenuItem(),
             RedoHandler.getInstance().getMenuItem(),
@@ -88,7 +98,7 @@ public class Main extends Application {
             CutHandler.getInstance().getMenuItem(),
             PasteHandler.getInstance().getMenuItem());
 
-    Menu song = new Menu("_Songs");
+    Menu song = new Menu(Messages.getString("song.label"));
     song.getItems().addAll(
             EditHandler.getInstance().getMenuItem(),
             RenameHandler.getInstance().getMenuItem(),
@@ -103,7 +113,7 @@ public class Main extends Application {
             RenameTagsToCamelcaseHandler.getInstance().getMenuItem(),
             NumberTracksHandler.getInstance().getMenuItem());
 
-    Menu help = new Menu("_Help");
+    Menu help = new Menu(Messages.getString("help.label"));
     help.getItems().addAll(AboutHandler.getInstance().getMenuItem());
 
     MenuBar menuBar = new MenuBar();

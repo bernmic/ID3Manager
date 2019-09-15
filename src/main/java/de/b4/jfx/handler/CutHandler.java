@@ -1,5 +1,6 @@
 package de.b4.jfx.handler;
 
+import de.b4.jfx.Messages;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
@@ -20,7 +21,7 @@ public class CutHandler extends SelectedHandler {
   }
 
   public MenuItem createMenuItem() {
-    MenuItem menuItem = new MenuItem("Cut");
+    MenuItem menuItem = new MenuItem(Messages.getString("menu.cut.label"));
     menuItem.setGraphic(new FontIcon(getIconCode("fa-cut")));
     menuItem.setOnAction(this::action);
     menuItem.setAccelerator(new KeyCodeCombination(KeyCode.X, KeyCombination.SHORTCUT_DOWN));
@@ -31,7 +32,7 @@ public class CutHandler extends SelectedHandler {
     Button button = new Button();
     button.setGraphic(new FontIcon(getIconCode("fa-cut")));
     button.setOnAction(this::action);
-    button.setTooltip(new Tooltip("Cut selected items"));
+    button.setTooltip(new Tooltip(Messages.getString("menu.cut.tooltip")));
 
     return button;
   }

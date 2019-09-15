@@ -1,5 +1,6 @@
 package de.b4.jfx.handler;
 
+import de.b4.jfx.Messages;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -21,7 +22,7 @@ public class QuitHandler extends Handler {
   }
 
   public MenuItem createMenuItem() {
-    MenuItem menuItem = new MenuItem("Quit");
+    MenuItem menuItem = new MenuItem(Messages.getString("menu.quit.label"));
     menuItem.setOnAction(this::action);
     return menuItem;
   }
