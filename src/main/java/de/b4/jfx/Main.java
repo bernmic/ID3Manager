@@ -95,7 +95,13 @@ public class Main extends Application {
             ParseHandler.getInstance().getMenuItem(),
             new SeparatorMenuItem(),
             RemoveID3V1Handler.getInstance().getMenuItem(),
-            RemoveID3V2Handler.getInstance().getMenuItem());
+            RemoveID3V2Handler.getInstance().getMenuItem(),
+            RemoveCommentHandler.getInstance().getMenuItem(),
+            RemoveUnderscoreFromFilenameHandler.getInstance().getMenuItem(),
+            new SeparatorMenuItem(),
+            RenameFileToCamelcaseHandler.getInstance().getMenuItem(),
+            RenameTagsToCamelcaseHandler.getInstance().getMenuItem(),
+            NumberTracksHandler.getInstance().getMenuItem());
 
     Menu help = new Menu("_Help");
     help.getItems().addAll(AboutHandler.getInstance().getMenuItem());

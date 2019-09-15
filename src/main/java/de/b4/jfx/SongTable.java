@@ -1,6 +1,6 @@
 package de.b4.jfx;
 
-import de.b4.jfx.handler.EditHandler;
+import de.b4.jfx.handler.*;
 import de.b4.jfx.model.Directory;
 import de.b4.jfx.model.Song;
 import javafx.concurrent.Service;
@@ -8,8 +8,10 @@ import javafx.concurrent.Task;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.VBox;
 
+import javax.naming.Context;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -59,11 +61,31 @@ public class SongTable extends TableView<Song> {
                 if (event.getClickCount() == 2 && (!tableRow.isEmpty())) {
                     EditHandler.getInstance().fireEvent();
                 }
+                else if (event.getClickCount() == 1 && event.getButton() == MouseButton.SECONDARY) {
+                    tableView.createContextMenu(event.getScreenX(), event.getScreenY());
+                }
             });
             return tableRow;
         });
 
         return tableView;
+    }
+
+    private void createContextMenu(double x, double y) {
+        ContextMenu menu = new ContextMenu(
+                EditHandler.getInstance().getMenuItem(),
+                RenameHandler.getInstance().getMenuItem(),
+                ParseHandler.getInstance().getMenuItem(),
+                new SeparatorMenuItem(),
+                RemoveID3V1Handler.getInstance().getMenuItem(),
+                RemoveID3V2Handler.getInstance().getMenuItem(),
+                RemoveCommentHandler.getInstance().getMenuItem(),
+                RemoveUnderscoreFromFilenameHandler.getInstance().getMenuItem(),
+                new SeparatorMenuItem(),
+                RenameFileToCamelcaseHandler.getInstance().getMenuItem(),
+                RenameTagsToCamelcaseHandler.getInstance().getMenuItem(),
+                NumberTracksHandler.getInstance().getMenuItem());
+        menu.show(this, x, y);
     }
 
     private TableColumn<Song, String> createTableColumn(String title, String property, int width) {
