@@ -23,6 +23,7 @@ public class Main extends Application {
   private boolean initialization = true;
   final String os = System.getProperty("os.name");
   public static Main theApp;
+  public Stage rootStage;
   private StackPane root;
   private DirectoryTree directoryTree;
   public SongTable songTable;
@@ -51,6 +52,7 @@ public class Main extends Application {
   @SuppressWarnings("RedundantThrows")
   @Override
   public void start(Stage stage) throws Exception {
+    rootStage = stage;
     System.out.println("Start...");
     stage.setTitle("ID3Manager 2");
     root = new StackPane(createApplicationFrame());

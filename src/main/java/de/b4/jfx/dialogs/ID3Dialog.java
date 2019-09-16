@@ -1,5 +1,6 @@
 package de.b4.jfx.dialogs;
 
+import de.b4.jfx.Main;
 import de.b4.jfx.components.MultiEdit;
 import de.b4.jfx.model.Song;
 import javafx.geometry.Insets;
@@ -62,6 +63,7 @@ public class ID3Dialog extends Dialog<Song[]> {
       return null;
     });
     dialog.fillFields();
+    dialog.initOwner(Main.theApp.rootStage);
     return dialog;
   }
 
