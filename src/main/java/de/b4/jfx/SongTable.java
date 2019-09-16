@@ -60,31 +60,28 @@ public class SongTable extends TableView<Song> {
                 if (event.getClickCount() == 2 && (!tableRow.isEmpty())) {
                     EditHandler.getInstance().fireEvent();
                 }
-                else if (event.getClickCount() == 1 && event.getButton() == MouseButton.SECONDARY) {
-                    tableView.createContextMenu(event.getScreenX(), event.getScreenY());
-                }
             });
             return tableRow;
         });
-
+        tableView.setContextMenu(tableView.createContextMenu());
         return tableView;
     }
 
-    private void createContextMenu(double x, double y) {
+    private ContextMenu createContextMenu() {
         ContextMenu menu = new ContextMenu(
-                EditHandler.getInstance().getMenuItem(),
-                RenameHandler.getInstance().getMenuItem(),
-                ParseHandler.getInstance().getMenuItem(),
+                ((EditHandler)EditHandler.getInstance()).createMenuItem(),
+                ((RenameHandler)RenameHandler.getInstance()).createMenuItem(),
+                ((ParseHandler)ParseHandler.getInstance()).createMenuItem(),
                 new SeparatorMenuItem(),
-                RemoveID3V1Handler.getInstance().getMenuItem(),
-                RemoveID3V2Handler.getInstance().getMenuItem(),
-                RemoveCommentHandler.getInstance().getMenuItem(),
-                RemoveUnderscoreFromFilenameHandler.getInstance().getMenuItem(),
+                ((RemoveID3V1Handler)RemoveID3V1Handler.getInstance()).createMenuItem(),
+                ((RemoveID3V2Handler)RemoveID3V2Handler.getInstance()).createMenuItem(),
+                ((RemoveCommentHandler)RemoveCommentHandler.getInstance()).createMenuItem(),
+                ((RemoveUnderscoreFromFilenameHandler)RemoveUnderscoreFromFilenameHandler.getInstance()).createMenuItem(),
                 new SeparatorMenuItem(),
-                RenameFileToCamelcaseHandler.getInstance().getMenuItem(),
-                RenameTagsToCamelcaseHandler.getInstance().getMenuItem(),
-                NumberTracksHandler.getInstance().getMenuItem());
-        menu.show(this, x, y);
+                ((RenameFileToCamelcaseHandler)RenameFileToCamelcaseHandler.getInstance()).createMenuItem(),
+                ((RenameTagsToCamelcaseHandler)RenameTagsToCamelcaseHandler.getInstance()).createMenuItem(),
+                ((NumberTracksHandler)NumberTracksHandler.getInstance()).createMenuItem());
+        return menu;
     }
 
     private TableColumn<Song, String> createTableColumn(String title, String property, int width) {
