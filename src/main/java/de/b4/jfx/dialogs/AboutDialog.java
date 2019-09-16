@@ -1,5 +1,7 @@
 package de.b4.jfx.dialogs;
 
+import de.b4.jfx.Main;
+import de.b4.jfx.Messages;
 import javafx.geometry.Insets;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -14,7 +16,7 @@ public class AboutDialog extends Dialog<Void> {
   public static AboutDialog newInstance() {
     AboutDialog dialog = new AboutDialog();
 
-    dialog.setTitle("About ID3Manager");
+    dialog.setTitle(Messages.getString("menu.about.label"));
     dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
 
     GridPane grid = new GridPane();
@@ -26,6 +28,7 @@ public class AboutDialog extends Dialog<Void> {
     grid.add(new Label("(c) 2019 Michael Bernards"), 0, 1);
 
     dialog.getDialogPane().setContent(grid);
+    dialog.initOwner(Main.theApp.rootStage);
 
     return dialog;
   }

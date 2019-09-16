@@ -1,6 +1,7 @@
 package de.b4.jfx.dialogs;
 
 import de.b4.jfx.Main;
+import de.b4.jfx.Messages;
 import de.b4.jfx.model.Song;
 import de.b4.jfx.util.Util;
 import javafx.geometry.Insets;
@@ -29,7 +30,7 @@ public class ParseDialog extends Dialog<Song[]> {
     dialog.fieldsMenu = dialog.createFieldsMenu();
     dialog.getDialogPane().setMinWidth(400);
     dialog.songs = songs;
-    dialog.setTitle("Parse songs");
+    dialog.setTitle(Messages.getString("parse.title.label"));
     dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
     GridPane grid = new GridPane();
     grid.setHgap(10);
@@ -40,18 +41,18 @@ public class ParseDialog extends Dialog<Song[]> {
 
     dialog.patternField = new TextField(parsePattern);
     GridPane.setHgrow(dialog.patternField, Priority.ALWAYS);
-    grid.add(new Label("Pattern"), 0, 0);
+    grid.add(new Label(Messages.getString("pattern.label")), 0, 0);
     grid.add(dialog.patternField, 1, 0);
 
-    grid.add(new Label("Example"), 0, 2);
-    grid.add(new Label("Track"), 0, 3);
-    grid.add(new Label("Artist"), 0, 4);
-    grid.add(new Label("Title"), 0, 5);
-    grid.add(new Label("Album"), 0, 6);
-    grid.add(new Label("Album artist"), 0, 7);
-    grid.add(new Label("Genre"), 0, 8);
-    grid.add(new Label("Year"), 0, 9);
-    grid.add(new Label("Media"), 0, 10);
+    grid.add(new Label(Messages.getString("example.label")), 0, 2);
+    grid.add(new Label(Messages.getString("column.track.label")), 0, 3);
+    grid.add(new Label(Messages.getString("column.artist.label")), 0, 4);
+    grid.add(new Label(Messages.getString("column.title.label")), 0, 5);
+    grid.add(new Label(Messages.getString("column.album.label")), 0, 6);
+    grid.add(new Label(Messages.getString("column.albumartist.label")), 0, 7);
+    grid.add(new Label(Messages.getString("column.genre.label")), 0, 8);
+    grid.add(new Label(Messages.getString("column.year.label")), 0, 9);
+    grid.add(new Label(Messages.getString("column.media.label")), 0, 10);
 
     dialog.trackLabel = dialog.createLabel(grid, 1, 3);
     dialog.artistLabel = dialog.createLabel(grid, 1, 4);
@@ -75,6 +76,8 @@ public class ParseDialog extends Dialog<Song[]> {
       dialog.fillExample(newValue);
     });
     dialog.patternField.setContextMenu(dialog.fieldsMenu);
+    dialog.initOwner(Main.theApp.rootStage);
+
     return dialog;
   }
 
@@ -86,14 +89,14 @@ public class ParseDialog extends Dialog<Song[]> {
 
   private ContextMenu createFieldsMenu() {
     ContextMenu contextMenu = new ContextMenu();
-    contextMenu.getItems().add(createFieldMenuItem("Track", "%n"));
-    contextMenu.getItems().add(createFieldMenuItem("Artist", "%a"));
-    contextMenu.getItems().add(createFieldMenuItem("Album artist", "%A"));
-    contextMenu.getItems().add(createFieldMenuItem("Album", "%b"));
-    contextMenu.getItems().add(createFieldMenuItem("Title", "%t"));
-    contextMenu.getItems().add(createFieldMenuItem("Genre", "%g"));
-    contextMenu.getItems().add(createFieldMenuItem("Year", "%y"));
-    contextMenu.getItems().add(createFieldMenuItem("Media", "%m"));
+    contextMenu.getItems().add(createFieldMenuItem(Messages.getString("column.track.label"), "%n"));
+    contextMenu.getItems().add(createFieldMenuItem(Messages.getString("column.artist.label"), "%a"));
+    contextMenu.getItems().add(createFieldMenuItem(Messages.getString("column.albumartist.label"), "%A"));
+    contextMenu.getItems().add(createFieldMenuItem(Messages.getString("column.album.label"), "%b"));
+    contextMenu.getItems().add(createFieldMenuItem(Messages.getString("column.title.label"), "%t"));
+    contextMenu.getItems().add(createFieldMenuItem(Messages.getString("column.genre.label"), "%g"));
+    contextMenu.getItems().add(createFieldMenuItem(Messages.getString("column.year.label"), "%y"));
+    contextMenu.getItems().add(createFieldMenuItem(Messages.getString("column.media.label"), "%m"));
 
     return contextMenu;
   }

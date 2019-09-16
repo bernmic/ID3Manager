@@ -1,6 +1,7 @@
 package de.b4.jfx.dialogs;
 
 import de.b4.jfx.Main;
+import de.b4.jfx.Messages;
 import de.b4.jfx.model.Song;
 import de.b4.jfx.util.Util;
 import javafx.geometry.Insets;
@@ -23,7 +24,7 @@ public class RenameDialog extends Dialog<Song[]> {
         dialog.fieldsMenu = dialog.createFieldsMenu();
         dialog.getDialogPane().setMinWidth(400);
         dialog.songs = songs;
-        dialog.setTitle("Rename songs");
+        dialog.setTitle(Messages.getString("rename.title.label"));
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
         GridPane grid = new GridPane();
         grid.setHgap(10);
@@ -32,10 +33,10 @@ public class RenameDialog extends Dialog<Song[]> {
 
         dialog.patternField = new TextField(Main.theApp.getConfiguration().getRenamePattern());
         GridPane.setHgrow(dialog.patternField, Priority.ALWAYS);
-        grid.add(new Label("Pattern"), 0, 0);
+        grid.add(new Label(Messages.getString("pattern.label")), 0, 0);
         grid.add(dialog.patternField, 1, 0);
 
-        grid.add(new Label("Example"), 0, 2);
+        grid.add(new Label(Messages.getString("example.label")), 0, 2);
         dialog.example = new Label(dialog.renameFile(dialog.patternField.getText(), songs[0]));
         GridPane.setConstraints(dialog.example, 0, 3, 2, 1);
         grid.add(dialog.example, 0, 3);
@@ -53,19 +54,21 @@ public class RenameDialog extends Dialog<Song[]> {
             dialog.example.setText(dialog.renameFile(newValue, songs[0]));
         });
         dialog.patternField.setContextMenu(dialog.fieldsMenu);
+        dialog.initOwner(Main.theApp.rootStage);
+
         return dialog;
     }
 
     private ContextMenu createFieldsMenu() {
         ContextMenu contextMenu = new ContextMenu();
-        contextMenu.getItems().add(createFieldMenuItem("Track", "%n"));
-        contextMenu.getItems().add(createFieldMenuItem("Artist", "%a"));
-        contextMenu.getItems().add(createFieldMenuItem("Album artist", "%A"));
-        contextMenu.getItems().add(createFieldMenuItem("Album", "%b"));
-        contextMenu.getItems().add(createFieldMenuItem("Title", "%t"));
-        contextMenu.getItems().add(createFieldMenuItem("Genre", "%g"));
-        contextMenu.getItems().add(createFieldMenuItem("Year", "%y"));
-        contextMenu.getItems().add(createFieldMenuItem("Media", "%m"));
+        contextMenu.getItems().add(createFieldMenuItem(Messages.getString("column.track.label"), "%n"));
+        contextMenu.getItems().add(createFieldMenuItem(Messages.getString("column.artist.label"), "%a"));
+        contextMenu.getItems().add(createFieldMenuItem(Messages.getString("column.albumartist.label"), "%A"));
+        contextMenu.getItems().add(createFieldMenuItem(Messages.getString("column.album.label"), "%b"));
+        contextMenu.getItems().add(createFieldMenuItem(Messages.getString("column.title.label"), "%t"));
+        contextMenu.getItems().add(createFieldMenuItem(Messages.getString("column.genre.label"), "%g"));
+        contextMenu.getItems().add(createFieldMenuItem(Messages.getString("column.year.label"), "%y"));
+        contextMenu.getItems().add(createFieldMenuItem(Messages.getString("column.media.label"), "%m"));
 
         return contextMenu;
     }
