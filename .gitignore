@@ -1,3 +1,11 @@
 target
 config.properties
 .idea
+.settings
+bin
+build
+gradle
+.gradle
+.project
+.vscode
+.classpath
