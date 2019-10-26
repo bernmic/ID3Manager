@@ -17,6 +17,7 @@ import javafx.stage.FileChooser;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,6 +37,7 @@ public class ID3Dialog extends Dialog<Song[]> {
   private final static String BPM_FIELD = "bpm";
   private final static String BITRATE_FIELD = "bitrate";
   private final static String SAMPLERATE_FIELD = "samplerate";
+  private final static Image NOCOVER_IMAGE = new Image("nocover.png");
 
   private Song[] songs;
   private Map<String,TextField> singleSongFields;
@@ -103,6 +105,7 @@ public class ID3Dialog extends Dialog<Song[]> {
     grid.add(createCover(3, 8), 3, 8);
     coverChanged = new CheckBox();
     grid.add(coverChanged, 5, 8);
+    //grid.setGridLinesVisible(true);
     return grid;
   }
 
@@ -152,7 +155,7 @@ public class ID3Dialog extends Dialog<Song[]> {
   }
 
   private ImageView createCover(int columnIndex, int rowIndex) {
-    cover = new ImageView("nocover.png");
+    cover = new ImageView(NOCOVER_IMAGE);
     cover.setFitHeight(200);
     cover.setFitWidth(200);
     GridPane.setConstraints(cover, columnIndex, rowIndex, 2, 4);
@@ -160,6 +163,7 @@ public class ID3Dialog extends Dialog<Song[]> {
       if (e.getClickCount() == 2) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(Messages.getString("choosecover.label"));
+        fileChooser.setInitialDirectory(Paths.get(songs[0].getPath()).toFile());
         fileChooser.setSelectedExtensionFilter(
                 new FileChooser.ExtensionFilter(
                         Messages.getString("images.label"),
@@ -233,7 +237,7 @@ public class ID3Dialog extends Dialog<Song[]> {
       singleSongFields.get(BITRATE_FIELD).setText(String.valueOf(song.getBitrate()));
       singleSongFields.get(SAMPLERATE_FIELD).setText(String.valueOf(song.getSamplingrate()));
 
-      cover.setImage(song.getCover());
+      cover.setImage(song.getCover() == null ? NOCOVER_IMAGE : song.getCover());
     }
     else {
       fillDistinctString(TITLE_FIELD, Song::getTitle);
@@ -254,7 +258,7 @@ public class ID3Dialog extends Dialog<Song[]> {
           break;
         }
       }
-      cover.setImage(img);
+      cover.setImage(img == null ? NOCOVER_IMAGE : img);
     }
   }
 

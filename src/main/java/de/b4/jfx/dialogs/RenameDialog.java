@@ -114,11 +114,11 @@ public class RenameDialog extends Dialog<Song[]> {
             map.put("track", String.format("%02d", track));
         } else
             map.put("track", "");
-        map.put("artist", song.getArtist());
-        map.put("albumartist", song.getAlbumArtist());
-        map.put("album", song.getAlbum());
-        map.put("title", song.getTitle());
-        map.put("genre", song.getGenre());
+        map.put("artist", sanitizeFilename(song.getArtist()));
+        map.put("albumartist", sanitizeFilename(song.getAlbumArtist()));
+        map.put("album", sanitizeFilename(song.getAlbum()));
+        map.put("title", sanitizeFilename(song.getTitle()));
+        map.put("genre", sanitizeFilename(song.getGenre()));
         map.put("year", song.getYear());
         map.put("media", song.getCD());
         StrSubstitutor ss = new StrSubstitutor(map);
@@ -129,6 +129,10 @@ public class RenameDialog extends Dialog<Song[]> {
         System.out.println("Rename " + song.getFilename() + " to " + s);
 
         return s;
+    }
+
+    private String sanitizeFilename(String name) {
+        return name.replaceAll("[:\\\\/*?|<>.]", "_");
     }
 
     public static class Field {

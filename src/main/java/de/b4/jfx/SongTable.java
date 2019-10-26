@@ -8,7 +8,6 @@ import javafx.concurrent.Task;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.VBox;
 
 import java.io.File;
@@ -96,10 +95,11 @@ public class SongTable extends TableView<Song> {
             currentDirectory = t1;
 
             //ProgressIndicator pi = new ProgressIndicator();
+            Label title = new Label("");
             ProgressBar pb = new ProgressBar();
             Label status = new Label("");
             status.setMinWidth(300);
-            VBox box = new VBox(pb, status);
+            VBox box = new VBox(title, pb, status);
             box.setAlignment(Pos.CENTER);
 
             Main.theApp.showOverlay(box);
@@ -111,6 +111,7 @@ public class SongTable extends TableView<Song> {
                 getItems().addAll(songs);
                 Main.theApp.hideOverlay(box);
             });
+            title.textProperty().bind(service.titleProperty());
             pb.progressProperty().bind(service.progressProperty());
             status.textProperty().bind(service.messageProperty());
             service.start();
@@ -129,6 +130,7 @@ public class SongTable extends TableView<Song> {
             return new Task<>() {
                 @Override
                 protected List<Song> call() throws Exception {
+                    updateTitle(Messages.getString("loading.label") + " " + directory.getName());
                     List<Song> songs = new ArrayList<>();
                     if (directory != null && directory.getFile() != null) {
                         File[] files = directory.getFile().listFiles();
