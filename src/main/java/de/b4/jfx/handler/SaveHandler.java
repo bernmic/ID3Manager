@@ -56,6 +56,7 @@ public class SaveHandler extends Handler {
     SaveService service = new SaveService();
     service.setOnSucceeded(e -> {
       Main.theApp.hideOverlay(box);
+      Main.theApp.songTable.refresh();
     });
     title.textProperty().bind(service.titleProperty());
     pb.progressProperty().bind(service.progressProperty());
