@@ -1,16 +1,14 @@
 package de.b4.jfx.components;
 
-import java.util.Map;
-import java.util.HashMap;
-
-import de.b4.jfx.Messages;
 import de.b4.jfx.model.Song;
 import javafx.geometry.Insets;
-import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Separator;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SingleSongGeneralForm extends SongForm {
 
@@ -51,17 +49,60 @@ public class SingleSongGeneralForm extends SongForm {
         return grid;
     }
 
-    private TextField createTextField(GridPane grid, String title, int col, int row, int colspan, int rowspan,
-            boolean disabled) {
-        Label label = new Label(Messages.getString(title));
-        GridPane.setConstraints(label, col, row, 1, 1);
-        grid.add(label, col, row);
-        TextField textField = new TextField();
-        textField.setDisable(disabled);
-        GridPane.setHgrow(textField, Priority.ALWAYS);
-        GridPane.setConstraints(textField, col + 1, row, colspan, rowspan);
-        grid.add(textField, col + 1, row);
+    public void fillForm() {
+        Song song = songs[0];
+        singleSongFields.get(TITLE_FIELD).setText(song.getTitle());
+        singleSongFields.get(ARTIST_FIELD).setText(song.getArtist());
+        singleSongFields.get(ALBUMARTIST_FIELD).setText(song.getAlbumArtist());
+        singleSongFields.get(ALBUM_FIELD).setText(song.getAlbum());
 
-        return textField;
+        singleSongFields.get(GENRE_FIELD).setText(song.getGenre());
+        singleSongFields.get(YEAR_FIELD).setText(song.getYear());
+        singleSongFields.get(TRACK_FIELD).setText(song.getTrack());
+        singleSongFields.get(CD_FIELD).setText(song.getCD());
+
+        singleSongFields.get(FILENAME_FIELD).setText(song.getPath() + song.getFilename());
+        singleSongFields.get(DURATION_FIELD).setText(song.getLength());
+        singleSongFields.get(BPM_FIELD).setText(song.getBPM());
+        singleSongFields.get(BITRATE_FIELD).setText(String.valueOf(song.getBitrate()));
+        singleSongFields.get(SAMPLERATE_FIELD).setText(String.valueOf(song.getSamplingrate()));
+
+        cover.setImage(song.getCover() == null ? NOCOVER_IMAGE : song.getCover());
+    }
+
+    public void saveForm() {
+        Song song = songs[0];
+        if (!song.getTitle().equals(singleSongFields.get(TITLE_FIELD).getText())) {
+            song.setTitle(singleSongFields.get(TITLE_FIELD).getText());
+            song.setDirty(true);
+        }
+        if (!song.getArtist().equals(singleSongFields.get(ARTIST_FIELD).getText())) {
+            song.setArtist(singleSongFields.get(ARTIST_FIELD).getText());
+            song.setDirty(true);
+        }
+        if (!song.getAlbumArtist().equals(singleSongFields.get(ALBUMARTIST_FIELD).getText())) {
+            song.setAlbumArtist(singleSongFields.get(ALBUMARTIST_FIELD).getText());
+            song.setDirty(true);
+        }
+        if (!song.getAlbum().equals(singleSongFields.get(ALBUM_FIELD).getText())) {
+            song.setAlbum(singleSongFields.get(ALBUM_FIELD).getText());
+            song.setDirty(true);
+        }
+        if (!song.getGenre().equals(singleSongFields.get(GENRE_FIELD).getText())) {
+            song.setGenre(singleSongFields.get(GENRE_FIELD).getText());
+            song.setDirty(true);
+        }
+        if (!song.getYear().equals(singleSongFields.get(YEAR_FIELD).getText())) {
+            song.setYear(singleSongFields.get(YEAR_FIELD).getText());
+            song.setDirty(true);
+        }
+        if (!song.getTrack().equals(singleSongFields.get(TRACK_FIELD).getText())) {
+            song.setTrack(singleSongFields.get(TRACK_FIELD).getText());
+            song.setDirty(true);
+        }
+        if (!song.getCD().equals(singleSongFields.get(CD_FIELD).getText())) {
+            song.setCD(singleSongFields.get(CD_FIELD).getText());
+            song.setDirty(true);
+        }
     }
 }
