@@ -113,7 +113,9 @@ public class Main extends Application {
             new SeparatorMenuItem(),
             RenameFileToCamelcaseHandler.getInstance().getMenuItem(),
             RenameTagsToCamelcaseHandler.getInstance().getMenuItem(),
-            NumberTracksHandler.getInstance().getMenuItem());
+            NumberTracksHandler.getInstance().getMenuItem(),
+            new SeparatorMenuItem(),
+            PlayHandler.getInstance().getMenuItem());
 
     Menu help = new Menu(Messages.getString("help.label"));
     help.getItems().addAll(AboutHandler.getInstance().getMenuItem());
@@ -140,7 +142,9 @@ public class Main extends Application {
             new Separator(),
             EditHandler.getInstance().getToolbarButton(),
             RenameHandler.getInstance().getToolbarButton(),
-            ParseHandler.getInstance().getToolbarButton());
+            ParseHandler.getInstance().getToolbarButton(),
+            new Separator(),
+            PlayHandler.getInstance().getToolbarButton());
   }
 
   private HBox createStatusbar() {

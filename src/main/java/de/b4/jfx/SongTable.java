@@ -79,7 +79,9 @@ public class SongTable extends TableView<Song> {
                 new SeparatorMenuItem(),
                 ((RenameFileToCamelcaseHandler)RenameFileToCamelcaseHandler.getInstance()).createMenuItem(),
                 ((RenameTagsToCamelcaseHandler)RenameTagsToCamelcaseHandler.getInstance()).createMenuItem(),
-                ((NumberTracksHandler)NumberTracksHandler.getInstance()).createMenuItem());
+                ((NumberTracksHandler)NumberTracksHandler.getInstance()).createMenuItem(),
+                new SeparatorMenuItem(),
+                ((PlayHandler)PlayHandler.getInstance()).createMenuItem());
         return menu;
     }
 

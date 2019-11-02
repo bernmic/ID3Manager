@@ -1,6 +1,7 @@
 module de.b4.jfx {
     requires javafx.controls;
     requires javafx.graphics;
+    requires javafx.media;
     requires java.desktop;
     requires mp3agic;
     requires org.apache.commons.lang3;
