@@ -16,6 +16,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
+import javafx.util.StringConverter;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.net.MalformedURLException;
@@ -83,6 +84,19 @@ public class MediaplayerDialog extends Dialog<Song> {
   private void addPlayerControls(GridPane grid) {
     Label volumeLabel = new Label(getVolumeLabelText());
     Slider volumeSlider = new Slider(0, 1, 1);
+    volumeSlider.setMajorTickUnit(0.5);
+    volumeSlider.setShowTickLabels(true);
+    volumeSlider.setLabelFormatter(new StringConverter<Double>() {
+      @Override
+      public String toString(Double aDouble) {
+        return String.format("%d", (int)(aDouble * 100f));
+      }
+
+      @Override
+      public Double fromString(String s) {
+        return null;
+      }
+    });
     this.player.volumeProperty().bind(volumeSlider.valueProperty());
     this.player.volumeProperty().addListener(e -> {
       volumeLabel.setText(getVolumeLabelText());
@@ -90,6 +104,8 @@ public class MediaplayerDialog extends Dialog<Song> {
 
     Label rateLabel = new Label(getRateLabelText());
     Slider rateSlider = new Slider(0, 5, 1);
+    rateSlider.setMajorTickUnit(0.5);
+    rateSlider.setShowTickLabels(true);
     this.player.rateProperty().bind(rateSlider.valueProperty());
     this.player.rateProperty().addListener(e -> {
       rateLabel.setText(getRateLabelText());
@@ -97,6 +113,8 @@ public class MediaplayerDialog extends Dialog<Song> {
 
     Label balanceLabel = new Label(getBalanceLabelText());
     Slider balanceSlider = new Slider(-1, 1, 0);
+    balanceSlider.setMajorTickUnit(1.0);
+    balanceSlider.setShowTickLabels(true);
     this.player.balanceProperty().bind(balanceSlider.valueProperty());
     this.player.balanceProperty().addListener(e -> {
       balanceLabel.setText(getBalanceLabelText());
