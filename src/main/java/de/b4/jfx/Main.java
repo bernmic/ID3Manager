@@ -38,6 +38,7 @@ public class Main extends Application {
   @Override
   public void init() throws Exception {
     System.out.println("Init...");
+    System.out.println(System.getProperty("java.version"));
   }
 
   @SuppressWarnings("RedundantThrows")
@@ -98,7 +99,9 @@ public class Main extends Application {
             new SeparatorMenuItem(),
             CopyHandler.getInstance().getMenuItem(),
             CutHandler.getInstance().getMenuItem(),
-            PasteHandler.getInstance().getMenuItem());
+            PasteHandler.getInstance().getMenuItem(),
+            new SeparatorMenuItem(),
+            SelectAllHandler.getInstance().getMenuItem());
 
     Menu song = new Menu(Messages.getString("song.label"));
     song.getItems().addAll(

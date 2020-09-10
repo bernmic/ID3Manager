@@ -8,3 +8,4 @@ This is the beginning of an ID3v2 editor for audio files. It is written in Java 
 - Recursive views
 - Table sorting numerical
 
+- After renaming set songs to new filename

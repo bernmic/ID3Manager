@@ -27,7 +27,7 @@ public class Configuration {
       properties = configuration.load(CONFIG_FILE);
       configuration.defaultValues = false;
     }
-    if (properties == null) {
+    if (properties == null && Thread.currentThread().getContextClassLoader().getResource("") != null) {
       String rootPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
       String appConfigPath = rootPath + CONFIG_FILE;
       properties = configuration.load(appConfigPath);
