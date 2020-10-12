@@ -9,7 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.text.StrSubstitutor;
+import org.apache.commons.text.StringSubstitutor;
 
 import java.util.HashMap;
 
@@ -121,7 +121,7 @@ public class RenameDialog extends Dialog<Song[]> {
         map.put("genre", sanitizeFilename(song.getGenre()));
         map.put("year", song.getYear());
         map.put("media", song.getCD());
-        StrSubstitutor ss = new StrSubstitutor(map);
+        StringSubstitutor ss = new StringSubstitutor(map);
 
         String s = ss.replace(p);
         s = s.replaceAll("[/:]", " ").replaceAll("[ ]+", " ");

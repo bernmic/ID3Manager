@@ -6,7 +6,7 @@ import de.b4.jfx.model.Song;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
-import org.apache.commons.lang3.text.WordUtils;
+import org.apache.commons.text.WordUtils;
 
 public class RenameTagsToCamelcaseHandler extends SelectedHandler {
   private final static char[] FILENAME_SEPARATORS = new char[] { ' ', '-', '_', '(', ')' };

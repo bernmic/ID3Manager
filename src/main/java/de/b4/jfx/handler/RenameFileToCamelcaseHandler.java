@@ -9,7 +9,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
-import org.apache.commons.lang3.text.WordUtils;
+import org.apache.commons.text.WordUtils;
 
 public class RenameFileToCamelcaseHandler extends SelectedHandler {
   private final static char[] FILENAME_SEPARATORS = new char[] { ' ', '-', '_', '(', ')' };
