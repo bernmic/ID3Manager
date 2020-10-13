@@ -3,10 +3,10 @@ package de.b4.jfx.handler;
 import de.b4.jfx.Main;
 import de.b4.jfx.Messages;
 import de.b4.jfx.model.Song;
+import de.b4.jfx.util.StringUtils;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
-import org.apache.commons.text.WordUtils;
 
 public class RenameTagsToCamelcaseHandler extends SelectedHandler {
   private final static char[] FILENAME_SEPARATORS = new char[] { ' ', '-', '_', '(', ')' };
@@ -32,17 +32,17 @@ public class RenameTagsToCamelcaseHandler extends SelectedHandler {
 
   private void action(ActionEvent actionEvent) {
     for (Song song : Main.theApp.getSelectedSongs()) {
-      String neu = WordUtils.capitalizeFully(song.getArtist(), FILENAME_SEPARATORS);
+      String neu = StringUtils.capitalizeFully(song.getArtist(), FILENAME_SEPARATORS);
       if (!song.getArtist().equals(neu)) {
         song.setArtist(neu);
         song.setDirty(true);
       }
-      neu = WordUtils.capitalizeFully(song.getAlbum(), FILENAME_SEPARATORS);
+      neu = StringUtils.capitalizeFully(song.getAlbum(), FILENAME_SEPARATORS);
       if (!song.getAlbum().equals(neu)) {
         song.setAlbum(neu);
         song.setDirty(true);
       }
-      neu = WordUtils.capitalizeFully(song.getTitle(), FILENAME_SEPARATORS);
+      neu = StringUtils.capitalizeFully(song.getTitle(), FILENAME_SEPARATORS);
       if (!song.getTitle().equals(neu)) {
         song.setTitle(neu);
         song.setDirty(true);

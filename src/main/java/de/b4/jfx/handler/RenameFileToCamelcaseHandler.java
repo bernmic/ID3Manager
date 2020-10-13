@@ -3,13 +3,10 @@ package de.b4.jfx.handler;
 import de.b4.jfx.Main;
 import de.b4.jfx.Messages;
 import de.b4.jfx.model.Song;
+import de.b4.jfx.util.StringUtils;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyCombination;
-import org.apache.commons.text.WordUtils;
 
 public class RenameFileToCamelcaseHandler extends SelectedHandler {
   private final static char[] FILENAME_SEPARATORS = new char[] { ' ', '-', '_', '(', ')' };
@@ -35,7 +32,7 @@ public class RenameFileToCamelcaseHandler extends SelectedHandler {
 
   private void action(ActionEvent actionEvent) {
     for (Song song : Main.theApp.getSelectedSongs()) {
-      String neu = WordUtils.capitalizeFully(song.getFilename(), FILENAME_SEPARATORS);
+      String neu = StringUtils.capitalizeFully(song.getFilename(), FILENAME_SEPARATORS);
       if (!song.getFilename().equals(neu)) {
         song.setFilename(neu);
         song.setDirty(true);

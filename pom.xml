@@ -49,12 +49,6 @@
       <artifactId>mp3agic</artifactId>
       <version>${mp3agic.version}</version>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-text -->
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-text</artifactId>
-      <version>${commons-text.version}</version>
-    </dependency>
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-graphics</artifactId>

@@ -3,13 +3,12 @@ package de.b4.jfx.dialogs;
 import de.b4.jfx.Main;
 import de.b4.jfx.Messages;
 import de.b4.jfx.model.Song;
+import de.b4.jfx.util.StringUtils;
 import de.b4.jfx.util.Util;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.text.StringSubstitutor;
 
 import java.util.HashMap;
 
@@ -99,36 +98,25 @@ public class RenameDialog extends Dialog<Song[]> {
 
     private String renameFile(String patternText, Song song) {
         String p = patternText;
-        p = StringUtils.replace(p, "%n", "${track}");
-        p = StringUtils.replace(p, "%a", "${artist}");
-        p = StringUtils.replace(p, "%A", "${albumartist}");
-        p = StringUtils.replace(p, "%b", "${album}");
-        p = StringUtils.replace(p, "%t", "${title}");
-        p = StringUtils.replace(p, "%g", "${genre}");
-        p = StringUtils.replace(p, "%y", "${year}");
-        p = StringUtils.replace(p, "%m", "${media}");
-        p += ("." + song.getFileType());
-        HashMap<String, String> map = new HashMap<String, String>();
+        String tracks = "";
         if (song.getTrack() != null) {
             int track = Util.getTrack(song.getTrack());
-            map.put("track", String.format("%02d", track));
-        } else
-            map.put("track", "");
-        map.put("artist", sanitizeFilename(song.getArtist()));
-        map.put("albumartist", sanitizeFilename(song.getAlbumArtist()));
-        map.put("album", sanitizeFilename(song.getAlbum()));
-        map.put("title", sanitizeFilename(song.getTitle()));
-        map.put("genre", sanitizeFilename(song.getGenre()));
-        map.put("year", song.getYear());
-        map.put("media", song.getCD());
-        StringSubstitutor ss = new StringSubstitutor(map);
+            tracks = String.format("%02d", track);
+        }
+        p = StringUtils.replace(p, "%n", tracks);
+        p = StringUtils.replace(p, "%a", sanitizeFilename(song.getArtist()));
+        p = StringUtils.replace(p, "%A", sanitizeFilename(song.getAlbumArtist()));
+        p = StringUtils.replace(p, "%b", sanitizeFilename(song.getAlbum()));
+        p = StringUtils.replace(p, "%t", sanitizeFilename(song.getTitle()));
+        p = StringUtils.replace(p, "%g", sanitizeFilename(song.getGenre()));
+        p = StringUtils.replace(p, "%y", song.getYear());
+        p = StringUtils.replace(p, "%m", song.getCD());
+        p += ("." + song.getFileType());
+        p = p.replaceAll("[/:]", " ").replaceAll("[ ]+", " ");
 
-        String s = ss.replace(p);
-        s = s.replaceAll("[/:]", " ").replaceAll("[ ]+", " ");
+        System.out.println("Rename " + song.getFilename() + " to " + p);
 
-        System.out.println("Rename " + song.getFilename() + " to " + s);
-
-        return s;
+        return p;
     }
 
     private String sanitizeFilename(String name) {
