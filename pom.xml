@@ -69,9 +69,10 @@
       <plugin>
         <groupId>org.openjfx</groupId>
         <artifactId>javafx-maven-plugin</artifactId>
-        <version>0.0.4</version>
+        <version>0.0.5</version>
         <configuration>
-          <mainClass>de.b4.jfx.Main</mainClass>
+          <launcher>ID3Manager</launcher>
+          <mainClass>jfx/de.b4.jfx.Main</mainClass>
         </configuration>
       </plugin>
       <plugin>
