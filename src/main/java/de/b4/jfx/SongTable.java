@@ -11,8 +11,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class SongTable extends TableView<Song> {
@@ -135,7 +139,7 @@ public class SongTable extends TableView<Song> {
                     updateTitle(Messages.getString("loading.label") + " " + directory.getName());
                     List<Song> songs = new ArrayList<>();
                     if (directory != null && directory.getFile() != null) {
-                        File[] files = directory.getFile().listFiles();
+                        File[] files = getSongFiles(); // directory.getFile().listFiles();
                         if (files != null) {
                             Arrays.sort(files);
                             int i = 0, count = files.length;
@@ -152,6 +156,19 @@ public class SongTable extends TableView<Song> {
                     return songs;
                 }
             };
+        }
+        private File[] getSongFiles() throws IOException {
+            if (Main.theApp.getConfiguration().isReadRecursive()) {
+                List<File> files = new ArrayList<>();
+                Files.find(Paths.get(directory.getFile().getAbsolutePath()), 2, (filePath, fileAttr) -> {
+                    return fileAttr.isRegularFile() && filePath.toString().toLowerCase().endsWith(".mp3");
+                }).forEach(p -> files.add(p.toFile()));
+                Collections.sort(files);
+                return files.toArray(new File[0]);
+            }
+            else {
+                return directory.getFile().listFiles();
+            }
         }
     }
 }

@@ -18,6 +18,7 @@ public class Configuration {
   private String renamePattern = "";
   private String parsePattern = "";
   private String skin = "";
+  private boolean readRecursive = false;
 
   public static Configuration newInstance() {
     Configuration configuration = new Configuration();
@@ -67,6 +68,7 @@ public class Configuration {
     this.setRenamePattern(properties.getProperty("pattern.rename", ""));
     this.setParsePattern(properties.getProperty("pattern.parse", ""));
     this.setSkin(properties.getProperty("skin", ""));
+    this.setReadRecursive(Boolean.parseBoolean(properties.getProperty("recursive", "false")));
   }
 
   public void save() {
@@ -79,6 +81,7 @@ public class Configuration {
     properties.setProperty("pattern.rename", getRenamePattern());
     properties.setProperty("pattern.parse", getParsePattern());
     properties.setProperty("skin", getSkin());
+    properties.setProperty("recursive", String.valueOf(isReadRecursive()));
     try {
       properties.store(new FileOutputStream(CONFIG_FILE), " JFX config file");
     } catch (Exception e) {
@@ -148,5 +151,13 @@ public class Configuration {
 
   public void setParsePattern(String parsePattern) {
     this.parsePattern = parsePattern;
+  }
+
+  public boolean isReadRecursive() {
+    return readRecursive;
+  }
+
+  public void setReadRecursive(boolean b) {
+    this.readRecursive = b;
   }
 }

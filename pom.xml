@@ -11,7 +11,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>11</java.version>
-    <javafx.version>15</javafx.version>
+    <javafx.version>17</javafx.version>
     <ikonli.version>11.5.0</ikonli.version>
     <mp3agic.version>0.9.1</mp3agic.version>
     <commons-text.version>1.9</commons-text.version>
@@ -69,7 +69,7 @@
       <plugin>
         <groupId>org.openjfx</groupId>
         <artifactId>javafx-maven-plugin</artifactId>
-        <version>0.0.5</version>
+        <version>0.0.8</version>
         <configuration>
           <launcher>ID3Manager</launcher>
           <mainClass>jfx/de.b4.jfx.Main</mainClass>
