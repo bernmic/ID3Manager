@@ -12,7 +12,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>11</java.version>
     <javafx.version>17</javafx.version>
-    <ikonli.version>11.5.0</ikonli.version>
+    <ikonli.version>12.2.0</ikonli.version>
     <mp3agic.version>0.9.1</mp3agic.version>
     <commons-text.version>1.9</commons-text.version>
   </properties>
