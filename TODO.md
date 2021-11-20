@@ -1,0 +1,6 @@
+- oneclick rename with default settings
+- warning before loosing unsaved works
+- page 2
+- cancel button in load (and save?)
+- summary after saving with possible errors
+- speedup load. test with asyncronous load
