@@ -38,7 +38,9 @@ public class Main extends Application {
   @Override
   public void init() throws Exception {
     System.out.println("Init...");
-    System.out.println(System.getProperty("java.version"));
+    System.out.println("Java   version: " + System.getProperty("java.version"));
+    System.out.println("JavaFX version: " + System.getProperty("javafx.version"));
+    System.out.println("JavaFX Runtime: " + System.getProperty("javafx.runtime.version"));
   }
 
   @SuppressWarnings("RedundantThrows")

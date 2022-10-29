@@ -15,3 +15,6 @@ This is the beginning of an ID3v2 editor for audio files. It is written in Java 
 - cancel button in load (and save?)
 - summary after saving with possible errors
 - speedup load. test with asyncronous load
+
+- check jaudiotagger
+- 

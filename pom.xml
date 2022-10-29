@@ -9,12 +9,15 @@
   <version>1.0-SNAPSHOT</version>
 
   <properties>
+    <project.mainclass>de.b4.jfx.Main</project.mainclass>
+    <project.mainmodule>de.b4.jfx</project.mainmodule>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>11</java.version>
-    <javafx.version>17</javafx.version>
-    <ikonli.version>12.2.0</ikonli.version>
+    <javafx.version>19</javafx.version>
+    <ikonli.version>12.3.1</ikonli.version>
     <mp3agic.version>0.9.1</mp3agic.version>
-    <commons-text.version>1.9</commons-text.version>
+    <commons-text.version>1.10</commons-text.version>
+    <jaudiotagger.version>3.0.1</jaudiotagger.version>
   </properties>
 
   <dependencies>
@@ -50,6 +53,11 @@
       <version>${mp3agic.version}</version>
     </dependency>
     <dependency>
+      <groupId>net.jthink</groupId>
+      <artifactId>jaudiotagger</artifactId>
+      <version>${jaudiotagger.version}</version>
+    </dependency>
+    <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-graphics</artifactId>
       <version>${javafx.version}</version>
@@ -72,13 +80,13 @@
         <version>0.0.8</version>
         <configuration>
           <launcher>ID3Manager</launcher>
-          <mainClass>jfx/de.b4.jfx.Main</mainClass>
+          <mainClass>${project.mainmodule}/${project.mainclass}</mainClass>
         </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>3.2.4</version>
+        <version>3.4.1</version>
         <executions>
           <execution>
             <phase>package</phase>
