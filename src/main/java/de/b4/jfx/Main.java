@@ -1,5 +1,7 @@
 package de.b4.jfx;
 
+import atlantafx.base.theme.PrimerDark;
+import atlantafx.base.theme.PrimerLight;
 import de.b4.jfx.handler.*;
 import de.b4.jfx.model.Configuration;
 import de.b4.jfx.model.Song;
@@ -79,6 +81,19 @@ public class Main extends Application {
                 Main.theApp.getConfiguration().getCurrentPath()
             );
         });
+        switch (getConfiguration().getTheme()) {
+            case Configuration.THEME_DARK:
+                Application.setUserAgentStylesheet(
+                    new PrimerDark().getUserAgentStylesheet()
+                );
+                break;
+            default:
+                Application.setUserAgentStylesheet(
+                    new PrimerLight().getUserAgentStylesheet()
+                );
+                break;
+        }
+        /*
         if (!"".equals(getConfiguration().getSkin())) {
             File f = new File(getConfiguration().getSkin());
             if (f.exists()) {
@@ -88,7 +103,7 @@ public class Main extends Application {
                     .add("file:///" + f.getAbsolutePath().replace("\\", "/"));
             }
         }
-
+        */
         initialization = false;
         stage.show();
     }
@@ -158,7 +173,22 @@ public class Main extends Application {
         help.getItems().addAll(AboutHandler.getInstance().getMenuItem());
 
         Menu view = createViewMenu();
-
+        Menu theme = new Menu(Messages.getString("theme.label"));
+        theme
+            .getItems()
+            .addAll(
+                LightThemeHandler.getInstance().getMenuItem(),
+                DarkThemeHandler.getInstance().getMenuItem()
+            );
+        Menu fontSize = new Menu(Messages.getString("font.size.label"));
+        fontSize
+            .getItems()
+            .addAll(
+                SmallFontHandler.getInstance().getMenuItem(),
+                NormalFontHandler.getInstance().getMenuItem(),
+                LargeFontHandler.getInstance().getMenuItem()
+            );
+        view.getItems().addAll(theme, fontSize);
         MenuBar menuBar = new MenuBar();
         menuBar.getMenus().addAll(file, edit, view, song, help);
 

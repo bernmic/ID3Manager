@@ -15,6 +15,7 @@
     <java.version>21</java.version>
     <javafx.version>22.0.1</javafx.version>
     <ikonli.version>12.3.1</ikonli.version>
+    <atlantafx.version>2.0.1</atlantafx.version>
     <mp3agic.version>0.9.1</mp3agic.version>
     <commons-text.version>1.12</commons-text.version>
     <jaudiotagger.version>3.0.1</jaudiotagger.version>
@@ -62,6 +63,11 @@
       <artifactId>javafx-graphics</artifactId>
       <version>${javafx.version}</version>
       <classifier>win</classifier>
+    </dependency>
+    <dependency>
+      <groupId>io.github.mkpaz</groupId>
+      <artifactId>atlantafx-base</artifactId>
+      <version>${atlantafx.version}</version>
     </dependency>
   </dependencies>
   <build>

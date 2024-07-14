@@ -9,3 +9,6 @@ gradle
 .project
 .vscode
 .classpath
+ID3Manager
+*.deb
+*.exe
