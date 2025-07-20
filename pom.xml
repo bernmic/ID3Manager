@@ -13,11 +13,11 @@
     <project.mainmodule>de.b4.jfx</project.mainmodule>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>24</java.version>
-    <javafx.version>24</javafx.version>
-    <ikonli.version>12.3.1</ikonli.version>
-    <atlantafx.version>2.0.1</atlantafx.version>
+    <javafx.version>24.0.2</javafx.version>
+    <ikonli.version>12.4.0</ikonli.version>
+    <atlantafx.version>2.1.0</atlantafx.version>
     <mp3agic.version>0.9.1</mp3agic.version>
-    <commons-text.version>1.13.0</commons-text.version>
+    <commons-text.version>1.13.1</commons-text.version>
     <jaudiotagger.version>3.0.1</jaudiotagger.version>
   </properties>
 
