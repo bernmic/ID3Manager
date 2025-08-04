@@ -20,8 +20,9 @@ public class RenameDialog extends Dialog<Song[]> {
 
     public static RenameDialog newInstance(Song[] songs) {
         RenameDialog dialog = new RenameDialog();
+        dialog.getDialogPane().getScene().getRoot().setStyle(Main.theApp.getFontStyle());
         dialog.fieldsMenu = dialog.createFieldsMenu();
-        dialog.getDialogPane().setMinWidth(400);
+        dialog.getDialogPane().setMinWidth(400 * Main.theApp.getZoom() / 100);
         dialog.songs = songs;
         dialog.setTitle(Messages.getString("rename.title.label"));
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);

@@ -75,6 +75,7 @@ public class Main extends Application {
             getConfiguration().getWidth(),
             getConfiguration().getHeight()
         );
+        scene.getRoot().setStyle(getFontStyle());
         stage.setScene(scene);
         stage.setOnShowing(e -> {
             directoryTree.expandToPath(
@@ -283,6 +284,14 @@ public class Main extends Application {
                 .stream()
                 .collect(Collectors.toList());
         return songs.toArray(new Song[songs.size()]);
+    }
+
+    public String getFontStyle() {
+        return String.format("-fx-font-size: %d.%dem", configuration.getZoom()/100, configuration.getZoom()%100);
+    }
+
+    public int getZoom() {
+        return configuration.getZoom();
     }
 
     public static void main(String[] args) {

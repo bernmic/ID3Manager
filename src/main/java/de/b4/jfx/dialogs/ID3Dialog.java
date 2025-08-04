@@ -23,6 +23,7 @@ public class ID3Dialog extends Dialog<Song[]> {
   public static ID3Dialog newInstance(Song[] songs) {
 
     ID3Dialog dialog = new ID3Dialog();
+    dialog.getDialogPane().getScene().getRoot().setStyle(Main.theApp.getFontStyle());
     dialog.songs = songs;
     dialog.setTitle(Messages.getString("edit.title.label"));
     dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
@@ -30,7 +31,7 @@ public class ID3Dialog extends Dialog<Song[]> {
     VBox vbox = new VBox(new TabPane(dialog.createGeneralTab(), dialog.createExtendedTab()));
     vbox.setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
     dialog.getDialogPane().setContent(vbox);
-    dialog.getDialogPane().setMinWidth(600);
+    dialog.getDialogPane().setMinWidth(600 * Main.theApp.getZoom() / 100);
     dialog.setResultConverter(param -> {
       if (param == ButtonType.OK) {
         dialog.generalForm.saveForm();

@@ -15,7 +15,7 @@ public class AboutDialog extends Dialog<Void> {
 
   public static AboutDialog newInstance() {
     AboutDialog dialog = new AboutDialog();
-
+    dialog.getDialogPane().getScene().getRoot().setStyle(Main.theApp.getFontStyle());
     dialog.setTitle(Messages.getString("menu.about.label"));
     dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
 

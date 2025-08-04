@@ -27,8 +27,9 @@ public class ParseDialog extends Dialog<Song[]> {
 
   public static ParseDialog newInstance(Song[] songs) {
     ParseDialog dialog = new ParseDialog();
+    dialog.getDialogPane().getScene().getRoot().setStyle(Main.theApp.getFontStyle());
     dialog.fieldsMenu = dialog.createFieldsMenu();
-    dialog.getDialogPane().setMinWidth(400);
+    dialog.getDialogPane().setMinWidth(400 * Main.theApp.getZoom() / 100);
     dialog.songs = songs;
     dialog.setTitle(Messages.getString("parse.title.label"));
     dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);

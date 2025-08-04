@@ -19,6 +19,7 @@ public class Configuration {
     private int iconSize = 16;
     private String iconColor = "";
     private int width = 800, height = 800;
+    private int zoom = 100;
     private String currentPath = "";
     private String renamePattern = "";
     private String parsePattern = "";
@@ -75,6 +76,9 @@ public class Configuration {
         this.setIconSize(
                 Integer.parseInt(properties.getProperty("icon.size", "24"))
             );
+        this.setZoom(
+          Integer.parseInt(properties.getProperty("window.zoom", "100"))
+        );
         this.setIconColor(properties.getProperty("icon.color", ""));
         this.setCurrentPath(properties.getProperty("path", ""));
         this.setRenamePattern(properties.getProperty("pattern.rename", ""));
@@ -93,6 +97,7 @@ public class Configuration {
         Properties properties = new Properties();
         properties.setProperty("window.width", String.valueOf(getWidth()));
         properties.setProperty("window.height", String.valueOf(getHeight()));
+        properties.setProperty("window.zoom", String.valueOf(getZoom()));
         properties.setProperty("icon.size", String.valueOf(getIconSize()));
         properties.setProperty("icon.color", getIconColor());
         properties.setProperty("path", getCurrentPath());
@@ -207,4 +212,13 @@ public class Configuration {
     public void setFontSize(String fontSize) {
         this.fontSize = fontSize;
     }
+
+    public int getZoom() {
+        return zoom;
+    }
+
+    public void setZoom(int zoom) {
+        this.zoom = zoom;
+    }
+
 }

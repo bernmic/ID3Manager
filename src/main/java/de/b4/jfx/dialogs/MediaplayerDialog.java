@@ -31,6 +31,7 @@ public class MediaplayerDialog extends Dialog<Song> {
 
   public static MediaplayerDialog newInstance(Song song) {
     MediaplayerDialog dialog = new MediaplayerDialog();
+    dialog.getDialogPane().getScene().getRoot().setStyle(Main.theApp.getFontStyle());
     dialog.song = song;
     dialog.setTitle(Messages.getString("player.title.label"));
     dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
