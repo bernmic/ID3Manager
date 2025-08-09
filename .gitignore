@@ -12,3 +12,4 @@ gradle
 ID3Manager
 *.deb
 *.exe
+tmp
