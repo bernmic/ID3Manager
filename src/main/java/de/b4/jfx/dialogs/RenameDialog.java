@@ -10,8 +10,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 
-import java.util.HashMap;
-
 public class RenameDialog extends Dialog<Song[]> {
     private Song[] songs;
     private TextField patternField;
@@ -22,7 +20,7 @@ public class RenameDialog extends Dialog<Song[]> {
         RenameDialog dialog = new RenameDialog();
         dialog.getDialogPane().getScene().getRoot().setStyle(Main.theApp.getFontStyle());
         dialog.fieldsMenu = dialog.createFieldsMenu();
-        dialog.getDialogPane().setMinWidth(400 * Main.theApp.getZoom() / 100);
+        dialog.getDialogPane().setMinWidth(4 * Main.theApp.getZoom());
         dialog.songs = songs;
         dialog.setTitle(Messages.getString("rename.title.label"));
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
@@ -125,8 +123,8 @@ public class RenameDialog extends Dialog<Song[]> {
     }
 
     public static class Field {
-        private String title;
-        private String key;
+        final private String title;
+        final private String key;
 
         public Field(String key, String title) {
             this.title = title;

@@ -1,5 +1,6 @@
 module de.b4.jfx {
     exports de.b4.jfx;
+    exports de.b4.jfx.model;
     requires javafx.base;
     requires javafx.controls;
     requires atlantafx.base;

@@ -6,20 +6,16 @@ import de.b4.jfx.handler.*;
 import de.b4.jfx.model.Configuration;
 import de.b4.jfx.model.Song;
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 import javafx.application.Application;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -69,6 +65,7 @@ public class Main extends Application {
         rootStage = stage;
         System.out.println("Start...");
         stage.setTitle("ID3Manager 2");
+
         root = new StackPane(createApplicationFrame());
         Scene scene = new Scene(
             root,
@@ -236,7 +233,20 @@ public class Main extends Application {
 
     private HBox createStatusbar() {
         HBox statusBar = new HBox();
-        statusBar.getChildren().addAll(new Label("Ready."));
+        statusBar.setPadding(new Insets(10, 10, 10, 10));
+        Pane gap = new Pane();
+        HBox.setHgrow(gap, Priority.ALWAYS);
+        Label zoomLabel = new Label(String.format("%d%%", configuration.getZoom()));
+        zoomLabel.setPadding(new Insets(0, 10, 0, 10));
+        Slider zoomSlider = new Slider(50, 300, configuration.getZoom());
+        zoomSlider.setPadding(new Insets(10, 0,0,0));
+        zoomSlider.setBlockIncrement(1.0);
+        zoomSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            zoomLabel.setText(String.format("%d%%", newValue.intValue()));
+            configuration.setZoom(newValue.intValue());
+            root.setStyle(getFontStyle());
+        });
+        statusBar.getChildren().addAll(new Label("Ready."), gap, zoomSlider, zoomLabel);
         return statusBar;
     }
 
@@ -269,7 +279,7 @@ public class Main extends Application {
     public void hideOverlay(Node node) {
         if (initialization) return;
         root.getChildren().remove(node);
-        root.getChildren().get(0).setDisable(false);
+        root.getChildren().getFirst().setDisable(false);
     }
 
     public Configuration getConfiguration() {

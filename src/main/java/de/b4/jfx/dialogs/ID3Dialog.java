@@ -31,7 +31,7 @@ public class ID3Dialog extends Dialog<Song[]> {
     VBox vbox = new VBox(new TabPane(dialog.createGeneralTab(), dialog.createExtendedTab()));
     vbox.setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
     dialog.getDialogPane().setContent(vbox);
-    dialog.getDialogPane().setMinWidth(600 * Main.theApp.getZoom() / 100);
+    dialog.getDialogPane().setMinWidth(6 * Main.theApp.getZoom());
     dialog.setResultConverter(param -> {
       if (param == ButtonType.OK) {
         dialog.generalForm.saveForm();
