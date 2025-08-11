@@ -15,6 +15,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
@@ -65,7 +66,8 @@ public class Main extends Application {
         rootStage = stage;
         System.out.println("Start...");
         stage.setTitle("ID3Manager 2");
-
+        Image icon = new Image("Id3v2.png");
+        stage.getIcons().add(icon);
         root = new StackPane(createApplicationFrame());
         Scene scene = new Scene(
             root,

@@ -2,6 +2,7 @@ package de.b4.jfx.handler;
 
 import de.b4.jfx.Messages;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tooltip;
@@ -11,33 +12,46 @@ import javafx.scene.input.KeyCombination;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 public class CutHandler extends SelectedHandler {
-  private static CutHandler instance;
+    private static CutHandler instance;
 
-  public static Handler getInstance() {
-    if (instance == null) {
-      instance = new CutHandler();
+    public static Handler getInstance() {
+        if (instance == null) {
+            instance = new CutHandler();
+        }
+        return instance;
     }
-    return instance;
-  }
 
-  public MenuItem createMenuItem() {
-    MenuItem menuItem = new MenuItem(Messages.getString("menu.cut.label"));
-    menuItem.setGraphic(new FontIcon(getIconCode("fa-cut")));
-    menuItem.setOnAction(this::action);
-    menuItem.setAccelerator(new KeyCodeCombination(KeyCode.X, KeyCombination.SHORTCUT_DOWN));
-    return menuItem;
-  }
+    @Override
+    FontIcon getFontIcon() {
+        return new FontIcon(getIconCode("fa-cut"));
+    }
 
-  public Button createToolbarButton() {
-    Button button = new Button();
-    button.setGraphic(new FontIcon(getIconCode("fa-cut")));
-    button.setOnAction(this::action);
-    button.setTooltip(new Tooltip(Messages.getString("menu.cut.tooltip")));
+    @Override
+    String getMenuItemText() {
+        return Messages.getString("menu.cut.label");
+    }
 
-    return button;
-  }
+    @Override
+    String getTooltipText() {
+        return Messages.getString("menu.cut.tooltip");
+    }
 
-  private void action(ActionEvent actionEvent) {
-    System.out.println("Cut...");
-  }
+    @Override
+    EventHandler<ActionEvent> getEventHandler() {
+        return this::action;
+    }
+
+    @Override
+    KeyCodeCombination getKeyCodeCombination() {
+        return new KeyCodeCombination(KeyCode.X, KeyCombination.SHORTCUT_DOWN);
+    }
+
+    @Override
+    boolean hasToolbarEntry() {
+        return true;
+    }
+
+    private void action(ActionEvent actionEvent) {
+        System.out.println("Cut...");
+    }
 }

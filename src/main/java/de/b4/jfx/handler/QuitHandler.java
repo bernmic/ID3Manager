@@ -3,32 +3,47 @@ package de.b4.jfx.handler;
 import de.b4.jfx.Messages;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
+import javafx.event.EventHandler;
+import javafx.scene.input.KeyCodeCombination;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 public class QuitHandler extends Handler {
-  private static QuitHandler instance;
+    private static QuitHandler instance;
 
-  public static Handler getInstance() {
-    if (instance == null) {
-      instance = new QuitHandler();
+    public static Handler getInstance() {
+        if (instance == null) {
+            instance = new QuitHandler();
+        }
+        return instance;
     }
-    return instance;
-  }
 
-  @Override
-  Button createToolbarButton() {
-    return null;
-  }
+    @Override
+    FontIcon getFontIcon() {
+        return null;
+    }
 
-  public MenuItem createMenuItem() {
-    MenuItem menuItem = new MenuItem(Messages.getString("menu.quit.label"));
-    menuItem.setOnAction(this::action);
-    return menuItem;
-  }
+    @Override
+    String getMenuItemText() {
+        return Messages.getString("menu.quit.label");
+    }
 
-  private void action(ActionEvent actionEvent) {
-    Platform.exit();
-  }
+    @Override
+    String getTooltipText() {
+        return null;
+    }
+
+    @Override
+    EventHandler<ActionEvent> getEventHandler() {
+        return this::action;
+    }
+
+    @Override
+    KeyCodeCombination getKeyCodeCombination() {
+        return null;
+    }
+
+    private void action(ActionEvent actionEvent) {
+        Platform.exit();
+    }
 }
 

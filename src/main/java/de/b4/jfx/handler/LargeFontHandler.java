@@ -1,17 +1,16 @@
 package de.b4.jfx.handler;
 
-import atlantafx.base.theme.PrimerDark;
 import de.b4.jfx.Main;
 import de.b4.jfx.Messages;
-import de.b4.jfx.dialogs.AboutDialog;
 import de.b4.jfx.model.Configuration;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.input.KeyCodeCombination;
+import org.kordamp.ikonli.javafx.FontIcon;
+
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
 
 public class LargeFontHandler extends Handler {
 
@@ -25,16 +24,28 @@ public class LargeFontHandler extends Handler {
     }
 
     @Override
-    Button createToolbarButton() {
+    FontIcon getFontIcon() {
         return null;
     }
 
-    public MenuItem createMenuItem() {
-        MenuItem menuItem = new MenuItem(
-            Messages.getString("font.size.large.label")
-        );
-        menuItem.setOnAction(this::action);
-        return menuItem;
+    @Override
+    String getMenuItemText() {
+        return Messages.getString("font.size.large.label");
+    }
+
+    @Override
+    String getTooltipText() {
+        return null;
+    }
+
+    @Override
+    EventHandler<ActionEvent> getEventHandler() {
+        return this::action;
+    }
+
+    @Override
+    KeyCodeCombination getKeyCodeCombination() {
+        return null;
     }
 
     private void action(ActionEvent actionEvent) {

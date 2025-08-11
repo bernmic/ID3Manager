@@ -3,12 +3,12 @@ package de.b4.jfx.handler;
 import atlantafx.base.theme.PrimerLight;
 import de.b4.jfx.Main;
 import de.b4.jfx.Messages;
-import de.b4.jfx.dialogs.AboutDialog;
 import de.b4.jfx.model.Configuration;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
+import javafx.event.EventHandler;
+import javafx.scene.input.KeyCodeCombination;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 public class LightThemeHandler extends Handler {
 
@@ -22,16 +22,28 @@ public class LightThemeHandler extends Handler {
     }
 
     @Override
-    Button createToolbarButton() {
+    FontIcon getFontIcon() {
         return null;
     }
 
-    public MenuItem createMenuItem() {
-        MenuItem menuItem = new MenuItem(
-            Messages.getString("menu.theme.light.label")
-        );
-        menuItem.setOnAction(this::action);
-        return menuItem;
+    @Override
+    String getMenuItemText() {
+        return Messages.getString("menu.theme.light.label");
+    }
+
+    @Override
+    String getTooltipText() {
+        return null;
+    }
+
+    @Override
+    EventHandler<ActionEvent> getEventHandler() {
+        return this::action;
+    }
+
+    @Override
+    KeyCodeCombination getKeyCodeCombination() {
+        return null;
     }
 
     private void action(ActionEvent actionEvent) {

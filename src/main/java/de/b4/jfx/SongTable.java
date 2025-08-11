@@ -27,7 +27,7 @@ public class SongTable extends TableView<Song> {
 
     public static SongTable newInstance() {
         SongTable tableView = new SongTable();
-        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
 
         tableView.getColumns().addAll(
                 tableView.createTableColumn(Messages.getString("column.filename.label"), "filename", 15),
@@ -72,20 +72,20 @@ public class SongTable extends TableView<Song> {
 
     private ContextMenu createContextMenu() {
         ContextMenu menu = new ContextMenu(
-                ((EditHandler)EditHandler.getInstance()).createMenuItem(),
-                ((RenameHandler)RenameHandler.getInstance()).createMenuItem(),
-                ((ParseHandler)ParseHandler.getInstance()).createMenuItem(),
+                EditHandler.getInstance().createMenuItem(),
+                RenameHandler.getInstance().createMenuItem(),
+                ParseHandler.getInstance().createMenuItem(),
                 new SeparatorMenuItem(),
-                ((RemoveID3V1Handler)RemoveID3V1Handler.getInstance()).createMenuItem(),
-                ((RemoveID3V2Handler)RemoveID3V2Handler.getInstance()).createMenuItem(),
-                ((RemoveCommentHandler)RemoveCommentHandler.getInstance()).createMenuItem(),
-                ((RemoveUnderscoreFromFilenameHandler)RemoveUnderscoreFromFilenameHandler.getInstance()).createMenuItem(),
+                RemoveID3V1Handler.getInstance().createMenuItem(),
+                RemoveID3V2Handler.getInstance().createMenuItem(),
+                RemoveCommentHandler.getInstance().createMenuItem(),
+                RemoveUnderscoreFromFilenameHandler.getInstance().createMenuItem(),
                 new SeparatorMenuItem(),
-                ((RenameFileToCamelcaseHandler)RenameFileToCamelcaseHandler.getInstance()).createMenuItem(),
-                ((RenameTagsToCamelcaseHandler)RenameTagsToCamelcaseHandler.getInstance()).createMenuItem(),
-                ((NumberTracksHandler)NumberTracksHandler.getInstance()).createMenuItem(),
+                RenameFileToCamelcaseHandler.getInstance().createMenuItem(),
+                RenameTagsToCamelcaseHandler.getInstance().createMenuItem(),
+                NumberTracksHandler.getInstance().createMenuItem(),
                 new SeparatorMenuItem(),
-                ((PlayHandler)PlayHandler.getInstance()).createMenuItem());
+                PlayHandler.getInstance().createMenuItem());
         return menu;
     }
 
@@ -157,6 +157,7 @@ public class SongTable extends TableView<Song> {
                 }
             };
         }
+
         private File[] getSongFiles() throws IOException {
             if (Main.theApp.getConfiguration().isReadRecursive()) {
                 List<File> files = new ArrayList<>();
@@ -165,8 +166,7 @@ public class SongTable extends TableView<Song> {
                 }).forEach(p -> files.add(p.toFile()));
                 Collections.sort(files);
                 return files.toArray(new File[0]);
-            }
-            else {
+            } else {
                 return directory.getFile().listFiles();
             }
         }

@@ -10,5 +10,7 @@ module de.b4.jfx {
     requires javafx.media;
     requires mp3agic;
     requires jaudiotagger;
+    //requires de.b4.jfx;
+    //requires javafx.graphics;
     opens de.b4.jfx.model;
 }
