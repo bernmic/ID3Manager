@@ -1,0 +1,13 @@
+.root {
+    .tree-cell > .tree-disclosure-node > .arrow,
+    .tree-table-row-cell > .tree-disclosure-node > .arrow {
+        -fx-background-color: -fx-mark-color;
+        -fx-padding: 0.333333em; /* 4 */
+        -fx-shape: "M 0 -16 L 32 0 L 0 16 z";
+    }
+
+    .tree-cell:expanded > .tree-disclosure-node > .arrow,
+    .tree-table-row-cell:expanded > .tree-disclosure-node > .arrow {
+        -fx-rotate: 90;
+    }
+}

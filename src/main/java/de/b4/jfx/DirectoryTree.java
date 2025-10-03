@@ -34,6 +34,7 @@ public class DirectoryTree extends TreeView<Directory> implements ObservableValu
         name = f.getAbsolutePath();
       }
       DirectoryTreeItem item = new DirectoryTreeItem(new Directory(f, name));
+      //item.getGraphic().setStyle("-fx-icon-size: 32px;");
       treeView.getRoot().getChildren().add(item);
     }
     treeView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<Directory>>() {

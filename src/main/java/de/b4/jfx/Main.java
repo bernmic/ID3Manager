@@ -6,6 +6,7 @@ import de.b4.jfx.handler.*;
 import de.b4.jfx.model.Configuration;
 import de.b4.jfx.model.Song;
 import java.io.File;
+import java.net.URL;
 import java.util.List;
 import java.util.stream.Collectors;
 import javafx.application.Application;
@@ -75,6 +76,8 @@ public class Main extends Application {
             getConfiguration().getHeight()
         );
         scene.getRoot().setStyle(getFontStyle());
+        scene.getStylesheets().add("de/b4/jfx/styles.css");
+
         stage.setScene(scene);
         stage.setOnShowing(e -> {
             directoryTree.expandToPath(
