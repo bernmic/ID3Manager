@@ -119,6 +119,7 @@ public class RenameDialog extends Dialog<Song[]> {
     }
 
     private String sanitizeFilename(String name) {
+        name = name.replaceAll("[$]", "s");
         return name.replaceAll("[:\\\\/*?|<>.]", "_");
     }
 
