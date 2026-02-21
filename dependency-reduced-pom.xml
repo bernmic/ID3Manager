@@ -8,7 +8,7 @@
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.13.0</version>
+        <version>3.14.1</version>
         <configuration>
           <release>${java.version}</release>
         </configuration>
@@ -20,11 +20,18 @@
         <configuration>
           <launcher>ID3Manager</launcher>
           <mainClass>${project.mainmodule}/${project.mainclass}</mainClass>
+          <jlinkImageName>ID3Manager</jlinkImageName>
+          <jlinkZipName>ID3Manager</jlinkZipName>
+          <compress>2</compress>
+          <noHeaderFiles>true</noHeaderFiles>
+          <stripDebug>true</stripDebug>
+          <noManPages>true</noManPages>
+          <options>-cp ../lib/${mp3agic.jarname}</options>
         </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>3.6.0</version>
+        <version>3.6.1</version>
         <executions>
           <execution>
             <phase>package</phase>
@@ -47,13 +54,14 @@
   <properties>
     <jaudiotagger.version>3.0.1</jaudiotagger.version>
     <project.mainmodule>de.b4.jfx</project.mainmodule>
-    <java.version>21</java.version>
-    <atlantafx.version>2.0.1</atlantafx.version>
-    <ikonli.version>12.3.1</ikonli.version>
-    <commons-text.version>1.12</commons-text.version>
+    <java.version>25</java.version>
+    <ikonli.version>12.4.0</ikonli.version>
+    <commons-text.version>1.14.0</commons-text.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <javafx.version>22.0.2</javafx.version>
+    <javafx.version>25</javafx.version>
     <mp3agic.version>0.9.1</mp3agic.version>
+    <atlantafx.version>2.1.0</atlantafx.version>
+    <mp3agic.jarname>mp3agic.jar</mp3agic.jarname>
     <project.mainclass>de.b4.jfx.Main</project.mainclass>
   </properties>
 </project>

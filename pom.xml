@@ -13,7 +13,7 @@
     <project.mainmodule>de.b4.jfx</project.mainmodule>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>25</java.version>
-    <javafx.version>25</javafx.version>
+    <javafx.version>25.0.2</javafx.version>
     <ikonli.version>12.4.0</ikonli.version>
     <atlantafx.version>2.1.0</atlantafx.version>
     <mp3agic.version>0.9.1</mp3agic.version>
